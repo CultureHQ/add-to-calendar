@@ -6,9 +6,6 @@ import "../src/style.css";
 
 const App = () => (
   <main>
-    <h1>
-      <a href="https://github.com/CultureHQ/add-to-calendar">@culturehq/add-to-calendar</a>
-    </h1>
     <AddToCalendar
       event={{
         title: "Test Event",

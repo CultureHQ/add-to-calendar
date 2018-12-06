@@ -1,148 +1,95 @@
 import React, { Component } from "react";
 
-const getRandomKey = () => {
-  let n = Math.floor(Math.random() * 999999999999).toString();
-  return new Date().getTime().toString() + "_" + n;
-};
+const makeTime = time => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, '');
 
-const formatTime = time => time.toISOString().replace(/[-:]|\.\d{3}/g, '');
+const makeUrl = (base, query) => Object.keys(query).reduce((accum, key, index) => (
+  `${accum}${index === 0 ? "?" : "&"}${key}=${encodeURIComponent(query[key])}`
+), base);
 
-const agent = navigator.userAgent || navigator.vendor || window.opera;
-const isMobile = (
-  /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(agent)
-  || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(agent.substr(0,4))
-);
+const makeGoogleCalendarUrl = event => makeUrl("https://calendar.google.com/calendar/render", {
+  action: "TEMPLATE",
+  dates: `${makeTime(event.startTime)}/${makeTime(event.endTime)}`,
+  location: event.location,
+  text: event.title,
+  details: event.description
+});
 
-class ICSCalendar extends Component {
-  constructor(props) {
-    super(props);
+const makeOutlookCalendarUrl = event => makeUrl("https://outlook.live.com/owa", {
+  rru: "addevent",
+  startdt: makeTime(event.startTime),
+  enddt: makeTime(event.endTime),
+  subject: event.title,
+  location: event.location,
+  body: event.description,
+  allday: false,
+  uid: new Date().getTime().toString(),
+  path: "/calendar/view/Month"
+});
 
-    this.state = { calendarUrl: this.deriveCalendarUrl() };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { event } = this.props;
-
-    if (event !== prevProps.event) {
-      this.setState({ calendarUrl: this.deriveCalendarUrl() });
-    }
-  }
-
-  deriveCalendarUrl() {
-    const { event } = this.props;
-
-    let calendarUrl = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "BEGIN:VEVENT",
-      "URL:" + document.URL,
-      "DTSTART:" + formatTime(event.startTime),
-      "DTEND:" + formatTime(event.endTime),
-      "SUMMARY:" + event.title,
-      "DESCRIPTION:" + event.description,
-      "LOCATION:" + event.location,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\n");
-
-    if (isMobile) {
-      calendarUrl = encodeURI(`data:text/calendar;charset=utf8,${calendarUrl}`);
-    }
-
-    return calendarUrl;
-  }
-
-  handleClick(event) {
-    event.preventDefault();
-
-    const { onClick } = this.props;
-    const { calendarUrl } = this.state;
-
-    let filename = "download.ics";
-    let blob = new Blob([calendarUrl], { type: "text/calendar;charset=utf-8" });
-
-    let link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    onClick();
-  }
-
-  render() {
-    const { event, label, onClick } = this.props;
-    const { calendarUrl } = this.state;
-
-    return <a onClick={isMobile ? onClick : this.handleClick} href={calendarUrl} target="_blank">{label}</a>;
-  }
-}
-
-const GoogleCalendar = ({ event, onClick }) => {
-  let calendarUrl = "https://calendar.google.com/calendar/render";
-  calendarUrl += "?action=TEMPLATE";
-  calendarUrl += "&dates=" + formatTime(event.startTime);
-  calendarUrl += "/" + formatTime(event.endTime);
-  calendarUrl += "&location=" + encodeURIComponent(event.location);
-  calendarUrl += "&text=" + encodeURIComponent(event.title);
-  calendarUrl += "&details=" + encodeURIComponent(event.description);
-
-  return <a onClick={onClick} href={calendarUrl} target="_blank">Google</a>;
-};
-
-const OutlookCalendar = ({ event, onClick }) => {
-  let calendarUrl = "https://outlook.live.com/owa/?rru=addevent";
-  calendarUrl += "&startdt=" + formatTime(event.startTime);
-  calendarUrl += "&enddt=" + formatTime(event.endTime);
-  calendarUrl += "&subject=" + encodeURIComponent(event.title);
-  calendarUrl += "&location=" + encodeURIComponent(event.location);
-  calendarUrl += "&body=" + encodeURIComponent(event.description);
-  calendarUrl += "&allday=false";
-  calendarUrl += "&uid=" + getRandomKey();
-  calendarUrl += "&path=/calendar/view/Month";
-
-  return <a onClick={onClick} href={calendarUrl} target="_blank">Outlook Web App</a>;
-};
-
-const YahooCalendar = ({ event, onClick }) => {
-  const minutes = Math.floor((+endTime - +startTime) / 60 / 1000);
+const makeYahooCalendarUrl = event => {
+  const minutes = Math.floor((+event.endTime - +event.startTime) / 60 / 1000);
   const duration = `${Math.floor(minutes / 60)}:${`0${minutes % 60}`.slice(-2)}`;
 
-  let calendarUrl = "https://calendar.yahoo.com/?v=60&view=d&type=20";
-  calendarUrl += "&title=" + encodeURIComponent(event.title);
-  calendarUrl += "&st=" + formatTime(event.startTime);
-  calendarUrl += "&dur=" + duration;
-  calendarUrl += "&desc=" + encodeURIComponent(event.description);
-  calendarUrl += "&in_loc=" + encodeURIComponent(event.location);
+  return makeUrl("https://calendar.yahoo.com", {
+    v: 60,
+    view: "d",
+    type: 20,
+    title: event.title,
+    st: makeTime(event.startTime),
+    dur: duration,
+    desc: event.description,
+    in_loc: event.location
+  });
+};
 
-  return <a onClick={onClick} href={calendarUrl} target="_blank">Yahoo</a>;
+const Calendar = ({ children, download = false, href, onClick }) => (
+  <a download={download} href={href} onClick={onClick} target="_blank">
+    {children}
+  </a>
+);
+
+const ICSCalendar = ({ children, event, onClick }) => {
+  const components = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "BEGIN:VEVENT",
+    `URL:${document.URL}`,
+    `DTSTART:${makeTime(event.startTime)}`,
+    `DTEND:${makeTime(event.endTime)}`,
+    `SUMMARY:${event.title}`,
+    `DESCRIPTION:${event.description}`,
+    `LOCATION:${event.location}`,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ];
+
+  const href = encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
+  return <Calendar href={href} onClick={onClick} download>{children}</Calendar>;
 };
 
 class AddToCalendar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { optionsOpen: props.optionsOpen || false };
+    this.state = { open: props.open || false };
     this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleToggle() {
-    let showOptions = !this.state.optionsOpen;
+    let showOptions = !this.state.open;
 
     if (showOptions) {
-      document.addEventListener("click", this.handleToggle, false);
+      document.addEventListener("click", this.handleToggle);
     } else {
       document.removeEventListener("click", this.handleToggle);
     }
 
-    this.setState({ optionsOpen: showOptions });
+    this.setState({ open: showOptions });
   }
 
   render() {
     const { buttonLabel, event, listItems } = this.props;
-    const { optionsOpen } = this.state;
+    const { open } = this.state;
 
     return (
       <div className="chq-atc">
@@ -155,13 +102,23 @@ class AddToCalendar extends Component {
             {buttonLabel}
           </button>
         )}
-        {optionsOpen && (
+        {open && (
           <div className="chq-atc--dropdown">
-            <ICSCalendar event={event} onClick={this.handleToggle} label="Apple Calendar" />
-            <GoogleCalendar event={event} onClick={this.handleToggle} />
-            <ICSCalendar event={event} onClick={this.handleToggle} label="Outlook" />
-            <OutlookCalendar event={event} onClick={this.handleToggle} />
-            <YahooCalendar event={event} onClick={this.handleToggle} />
+            <ICSCalendar event={event} onClick={this.handleToggle}>
+              Apple Calendar
+            </ICSCalendar>
+            <Calendar href={makeGoogleCalendarUrl(event)} onClick={this.handleToggle}>
+              Google
+            </Calendar>
+            <ICSCalendar event={event} onClick={this.handleToggle}>
+              Outlook
+            </ICSCalendar>
+            <Calendar href={makeOutlookCalendarUrl(event)} onClick={this.handleToggle}>
+              Outlook Web App
+            </Calendar>
+            <Calendar href={makeYahooCalendarUrl(event)} onClick={this.handleToggle}>
+              Yahoo
+            </Calendar>
           </div>
         )}
       </div>
@@ -171,7 +128,7 @@ class AddToCalendar extends Component {
 
 AddToCalendar.defaultProps = {
   buttonLabel: "Add to My Calendar",
-  optionsOpen: false,
+  open: false,
   event: {
     title: "Sample Event",
     description: "This is the sample event provided as an example only",
