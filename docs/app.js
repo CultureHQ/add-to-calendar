@@ -23,26 +23,41 @@ const App = () => {
   const [endsAt, setEndsAt] = useState("2018-12-06T18:00:00-05:00");
 
   return (
-    <main>
-      <Field name="name" value={name} setValue={setName}>
-        Name
-      </Field>
-      <Field name="details" value={details} setValue={setDetails}>
-        Details
-      </Field>
-      <Field name="location" value={location} setValue={setLocation}>
-        Location
-      </Field>
-      <Field name="startsAt" value={startsAt} setValue={setStartsAt}>
-        Starts At
-      </Field>
-      <Field name="endsAt" value={endsAt} setValue={setEndsAt}>
-        Ends At
-      </Field>
-      <div className="chq-atc--wrap">
-        <AddToCalendar event={{ name, details, location, startsAt, endsAt }} />
-      </div>
-    </main>
+    <>
+      <nav>@culturehq/add-to-calendar</nav>
+      <main>
+        <Field name="name" value={name} setValue={setName}>
+          Name
+        </Field>
+        <Field name="details" value={details} setValue={setDetails}>
+          Details
+        </Field>
+        <Field name="location" value={location} setValue={setLocation}>
+          Location
+        </Field>
+        <Field name="startsAt" value={startsAt} setValue={setStartsAt}>
+          Starts At
+        </Field>
+        <Field name="endsAt" value={endsAt} setValue={setEndsAt}>
+          Ends At
+        </Field>
+        <div className="chq-atc--wrap">
+          <AddToCalendar event={{ name, details, location, startsAt, endsAt }} />
+        </div>
+      </main>
+      {ReactDOM.createPortal(
+        <footer>
+          <p>
+            Copyright (c) 2018 CultureHQ
+            <br />
+            <a href="https://github.com/CultureHQ/add-to-calendar">
+              github.com/CultureHQ/add-to-calendar
+            </a>
+          </p>
+        </footer>,
+        document.body
+      )}
+    </>
   );
 };
 
