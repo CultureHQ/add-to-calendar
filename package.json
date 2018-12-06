@@ -1,0 +1,54 @@
+{
+  "name": "@culturehq/add-to-calendar",
+  "version": "0.1.0",
+  "description": "A small package for adding an event to a calendar.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "yarn build:js && yarn build:docs",
+    "build:js": "babel src --out-dir dist --copy-files",
+    "build:docs": "webpack --mode production",
+    "lint": "eslint .",
+    "start": "webpack-dev-server --mode development --hot",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CultureHQ/add-to-calendar.git"
+  },
+  "author": "Kevin Deisz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CultureHQ/add-to-calendar/issues"
+  },
+  "homepage": "https://github.com/CultureHQ/add-to-calendar#readme",
+  "peerDependencies": {
+    "react": "^16",
+    "react-dom": "^16"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.0",
+    "jest": "^23.6.0",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.27.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./setupTests.js"
+  }
+}

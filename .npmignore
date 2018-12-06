@@ -1,0 +1,7 @@
+/.*
+/coverage
+/webpack*
+/docs/
+/example/
+/src/
+/yarn*
