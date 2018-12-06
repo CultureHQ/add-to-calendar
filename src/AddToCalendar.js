@@ -75,16 +75,20 @@ class AddToCalendar extends Component {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleToggle() {
-    let showOptions = !this.state.open;
+  componentDidUpdate(prevProps, prevState) {
+    const { open } = this.state;
 
-    if (showOptions) {
-      document.addEventListener("click", this.handleToggle);
-    } else {
-      document.removeEventListener("click", this.handleToggle);
+    if (open !== prevState.open) {
+      if (open) {
+        document.addEventListener("click", this.handleToggle);
+      } else {
+        document.removeEventListener("click", this.handleToggle);
+      }
     }
+  }
 
-    this.setState({ open: showOptions });
+  handleToggle() {
+    this.setState(({ open }) => ({ open: !open }));
   }
 
   render() {
