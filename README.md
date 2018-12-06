@@ -8,26 +8,42 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
 
 ```jsx
 <AddToCalendar
-  buttonLabel="Add to My Calendar"
-  optionsOpen={false}
   event={{
-    title: "Test Event",
-    description: "This is a test event",
+    name: "Happy Hour",
+    details: "Let's go after work",
     location: "Boston, MA",
-    startTime: "2018-09-16T20:15:00-04:00",
-    endTime: "2018-09-16T21:45:00-04:00"
+    startsAt: "2018-12-06T17:00:00-05:00",
+    endsAt: "2018-12-06T18:00:00-05:00"
   }}
-  listItems={[
-    { apple: "Apple Calendar" },
-    { google: "Google" },
-    { outlook: "Outlook" },
-    { outlookcom: "Outlook Web App" },
-    { yahoo: "Yahoo" }
-  ]}
-/>
+  open={false}
+>
+  Add to My Calendar
+</AddToCalendar>
 ```
 
 To get the styles, be sure it import `@culturehq/add-to-calendar/dist/styles.css` into your application. You can style it appropriately for your app by overriding the CSS classes used internally. They are listed in [`styles.css`](src/styles.css).
+
+### `children`
+
+The label for the button that triggers the dropdown
+
+### `event`
+
+Should be an object representing the event to be added to the various calendars. The keys are:
+
+* `name` - the name of the event
+* `details` - the details of the event
+* `location` - the location of the event
+* `startsAt` - the start time of the event, formatted as an ISO string
+* `endsAt` - the end time of the event, formatted as an ISO string
+
+### `open`
+
+Whether or not the dropdown should start open. (Will be ignored after initial render.)
+
+## Credit
+
+This package is 
 
 ## Testing locally
 

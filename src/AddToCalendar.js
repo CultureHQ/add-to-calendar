@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 const makeTime = time => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, '');
 
@@ -8,36 +8,36 @@ const makeUrl = (base, query) => Object.keys(query).reduce((accum, key, index) =
 
 const makeGoogleCalendarUrl = event => makeUrl("https://calendar.google.com/calendar/render", {
   action: "TEMPLATE",
-  dates: `${makeTime(event.startTime)}/${makeTime(event.endTime)}`,
+  dates: `${makeTime(event.startsAt)}/${makeTime(event.endsAt)}`,
   location: event.location,
-  text: event.title,
-  details: event.description
+  text: event.name,
+  details: event.details
 });
 
 const makeOutlookCalendarUrl = event => makeUrl("https://outlook.live.com/owa", {
   rru: "addevent",
-  startdt: makeTime(event.startTime),
-  enddt: makeTime(event.endTime),
-  subject: event.title,
+  startdt: makeTime(event.startsAt),
+  enddt: makeTime(event.endsAt),
+  subject: event.name,
   location: event.location,
-  body: event.description,
+  body: event.details,
   allday: false,
   uid: new Date().getTime().toString(),
   path: "/calendar/view/Month"
 });
 
 const makeYahooCalendarUrl = event => {
-  const minutes = Math.floor((+event.endTime - +event.startTime) / 60 / 1000);
+  const minutes = Math.floor((+event.endsAt - +event.startsAt) / 60 / 1000);
   const duration = `${Math.floor(minutes / 60)}:${`0${minutes % 60}`.slice(-2)}`;
 
   return makeUrl("https://calendar.yahoo.com", {
     v: 60,
     view: "d",
     type: 20,
-    title: event.title,
-    st: makeTime(event.startTime),
+    title: event.name,
+    st: makeTime(event.startsAt),
     dur: duration,
-    desc: event.description,
+    desc: event.details,
     in_loc: event.location
   });
 };
@@ -54,10 +54,10 @@ const ICSCalendar = ({ children, event, onClick }) => {
     "VERSION:2.0",
     "BEGIN:VEVENT",
     `URL:${document.URL}`,
-    `DTSTART:${makeTime(event.startTime)}`,
-    `DTEND:${makeTime(event.endTime)}`,
-    `SUMMARY:${event.title}`,
-    `DESCRIPTION:${event.description}`,
+    `DTSTART:${makeTime(event.startsAt)}`,
+    `DTEND:${makeTime(event.endsAt)}`,
+    `SUMMARY:${event.name}`,
+    `DESCRIPTION:${event.details}`,
     `LOCATION:${event.location}`,
     "END:VEVENT",
     "END:VCALENDAR"
@@ -67,7 +67,7 @@ const ICSCalendar = ({ children, event, onClick }) => {
   return <Calendar href={href} onClick={onClick} download>{children}</Calendar>;
 };
 
-class AddToCalendar extends Component {
+class AddToCalendar extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -92,7 +92,7 @@ class AddToCalendar extends Component {
   }
 
   render() {
-    const { buttonLabel, event, listItems } = this.props;
+    const { children = "Add to My Calendar", event } = this.props;
     const { open } = this.state;
 
     return (
@@ -103,7 +103,7 @@ class AddToCalendar extends Component {
               <path d="M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z" />
             </svg>
             {" "}
-            {buttonLabel}
+            {children}
           </button>
         )}
         {open && (
@@ -129,17 +129,5 @@ class AddToCalendar extends Component {
     );
   }
 }
-
-AddToCalendar.defaultProps = {
-  buttonLabel: "Add to My Calendar",
-  open: false,
-  event: {
-    title: "Sample Event",
-    description: "This is the sample event provided as an example only",
-    location: "Portland, OR",
-    startTime: "2016-09-16T20:15:00-04:00",
-    endTime: "2016-09-16T21:45:00-04:00"
-  }
-};
 
 export default AddToCalendar;
