@@ -50,8 +50,5 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./setupTests.js"
-  },
-  "dependencies": {
-    "moment": "^2.22.2"
   }
 }
