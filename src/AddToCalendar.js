@@ -108,25 +108,6 @@ const isMobile = () => {
 };
 
 class AddToCalendar extends Component {
-  static defaultProps = {
-    buttonLabel: "Add to My Calendar",
-    optionsOpen: false,
-    event: {
-      title: "Sample Event",
-      description: "This is the sample event provided as an example only",
-      location: "Portland, OR",
-      startTime: "2016-09-16T20:15:00-04:00",
-      endTime: "2016-09-16T21:45:00-04:00"
-    },
-    listItems: [
-      { apple: "Apple Calendar" },
-      { google: "Google" },
-      { outlook: "Outlook" },
-      { outlookcom: "Outlook Web App" },
-      { yahoo: "Yahoo" }
-    ]
-  };
-
   constructor(props) {
     super(props);
 
@@ -169,51 +150,62 @@ class AddToCalendar extends Component {
     this.toggleCalendarDropdown();
   }
 
-  renderDropdown() {
-    const { event, listItems } = this.props;
-
-    return listItems.map(listItem => {
-      let currentItem = Object.keys(listItem)[0];
-      let currentLabel = listItem[currentItem];
-
-      return (
-        <li key={getRandomKey()}>
-          <a
-            className={currentItem + "-link"}
-            onClick={this.handleDropdownLinkClick}
-            href={buildUrl(event, currentItem)}
-            target="_blank"
-          >
-            {currentLabel}
-          </a>
-        </li>
-      );
-    });
-  }
-
   render() {
-    const { buttonLabel, event } = this.props;
+    const { buttonLabel, event, listItems } = this.props;
     const { optionsOpen } = this.state;
 
     return (
-      <div className="react-add-to-calendar">
+      <div className="chq-atc">
         {event && (
-          <div className="react-add-to-calendar__wrapper">
-            <a className="react-add-to-calendar__button" onClick={this.toggleCalendarDropdown}>
-              {buttonLabel}
-            </a>
-          </div>
+          <button type="button" className="chq-atc--button" onClick={this.toggleCalendarDropdown}>
+            <svg width="20px" height="20px" viewBox="0 0 1024 1024">
+              <path d="M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z" />
+            </svg>
+            {" "}
+            {buttonLabel}
+          </button>
         )}
         {optionsOpen && (
-          <div className="react-add-to-calendar__dropdown">
-            <ul>
-              {this.renderDropdown()}
-            </ul>
+          <div className="chq-atc--dropdown">
+            {listItems.map(listItem => {
+              let currentItem = Object.keys(listItem)[0];
+              let currentLabel = listItem[currentItem];
+
+              return (
+                <a
+                  key={getRandomKey()}
+                  onClick={this.handleDropdownLinkClick}
+                  href={buildUrl(event, currentItem)}
+                  target="_blank"
+                >
+                  {currentLabel}
+                </a>
+              );
+            })}
           </div>
         )}
       </div>
     );
   }
 }
+
+AddToCalendar.defaultProps = {
+  buttonLabel: "Add to My Calendar",
+  optionsOpen: false,
+  event: {
+    title: "Sample Event",
+    description: "This is the sample event provided as an example only",
+    location: "Portland, OR",
+    startTime: "2016-09-16T20:15:00-04:00",
+    endTime: "2016-09-16T21:45:00-04:00"
+  },
+  listItems: [
+    { apple: "Apple Calendar" },
+    { google: "Google" },
+    { outlook: "Outlook" },
+    { outlookcom: "Outlook Web App" },
+    { yahoo: "Yahoo" }
+  ]
+};
 
 export default AddToCalendar;

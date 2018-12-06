@@ -10,13 +10,13 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
 <AddToCalendar
   buttonLabel="Add to My Calendar"
   optionsOpen={false}
-  event={
+  event={{
     title: "Test Event",
     description: "This is a test event",
     location: "Boston, MA",
     startTime: "2018-09-16T20:15:00-04:00",
     endTime: "2018-09-16T21:45:00-04:00"
-  }
+  }}
   listItems={[
     { apple: "Apple Calendar" },
     { google: "Google" },
