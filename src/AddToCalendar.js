@@ -29,66 +29,6 @@ const calculateDuration = (startTime, endTime) => {
   );
 };
 
-const buildUrl = (event, type) => {
-  let calendarUrl = "";
-
-  switch (type) {
-    case "google":
-      calendarUrl = "https://calendar.google.com/calendar/render";
-      calendarUrl += "?action=TEMPLATE";
-      calendarUrl += "&dates=" + formatTime(event.startTime);
-      calendarUrl += "/" + formatTime(event.endTime);
-      calendarUrl += "&location=" + encodeURIComponent(event.location);
-      calendarUrl += "&text=" + encodeURIComponent(event.title);
-      calendarUrl += "&details=" + encodeURIComponent(event.description);
-      break;
-    case "yahoo":
-      let duration = calculateDuration(event.startTime, event.endTime);
-      calendarUrl = "https://calendar.yahoo.com/?v=60&view=d&type=20";
-      calendarUrl += "&title=" + encodeURIComponent(event.title);
-      calendarUrl += "&st=" + formatTime(event.startTime);
-      calendarUrl += "&dur=" + duration;
-      calendarUrl += "&desc=" + encodeURIComponent(event.description);
-      calendarUrl += "&in_loc=" + encodeURIComponent(event.location);
-      break;
-    case "outlookcom":
-      calendarUrl = "https://outlook.live.com/owa/?rru=addevent";
-      calendarUrl += "&startdt=" + formatTime(event.startTime);
-      calendarUrl += "&enddt=" + formatTime(event.endTime);
-      calendarUrl += "&subject=" + encodeURIComponent(event.title);
-      calendarUrl += "&location=" + encodeURIComponent(event.location);
-      calendarUrl += "&body=" + encodeURIComponent(event.description);
-      calendarUrl += "&allday=false";
-      calendarUrl += "&uid=" + getRandomKey();
-      calendarUrl += "&path=/calendar/view/Month";
-      break;
-    default:
-      calendarUrl = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "BEGIN:VEVENT",
-        "URL:" + document.URL,
-        "DTSTART:" + formatTime(event.startTime),
-        "DTEND:" + formatTime(event.endTime),
-        "SUMMARY:" + event.title,
-        "DESCRIPTION:" + event.description,
-        "LOCATION:" + event.location,
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\n");
-
-      if (isMobile()) {
-        calendarUrl = encodeURI(
-          "data:text/calendar;charset=utf8," + calendarUrl
-        );
-      }
-      break;
-  }
-
-  return calendarUrl;
-}
-
-// determine if a mobile browser is being used
 const isMobile = () => {
   let mobile = false;
 
@@ -107,47 +47,129 @@ const isMobile = () => {
   return mobile;
 };
 
+class ICSCalendar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { calendarUrl: this.deriveCalendarUrl() };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { event } = this.props;
+
+    if (event !== prevProps.event) {
+      this.setState({ calendarUrl: this.deriveCalendarUrl() });
+    }
+  }
+
+  deriveCalendarUrl() {
+    const { event } = this.props;
+
+    let calendarUrl = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "BEGIN:VEVENT",
+      "URL:" + document.URL,
+      "DTSTART:" + formatTime(event.startTime),
+      "DTEND:" + formatTime(event.endTime),
+      "SUMMARY:" + event.title,
+      "DESCRIPTION:" + event.description,
+      "LOCATION:" + event.location,
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\n");
+
+    if (isMobile()) {
+      calendarUrl = encodeURI(`data:text/calendar;charset=utf8,${calendarUrl}`);
+    }
+
+    return calendarUrl;
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+
+    const { onClick } = this.props;
+    const { calendarUrl } = this.state;
+
+    let filename = "download.ics";
+    let blob = new Blob([calendarUrl], { type: "text/calendar;charset=utf-8" });
+
+    let link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    onClick();
+  }
+
+  render() {
+    const { event, label, onClick } = this.props;
+    const { calendarUrl } = this.state;
+
+    return <a onClick={isMobile() ? onClick : this.handleClick} href={calendarUrl} target="_blank">{label}</a>;
+  }
+}
+
+const GoogleCalendar = ({ event, onClick }) => {
+  let calendarUrl = "https://calendar.google.com/calendar/render";
+  calendarUrl += "?action=TEMPLATE";
+  calendarUrl += "&dates=" + formatTime(event.startTime);
+  calendarUrl += "/" + formatTime(event.endTime);
+  calendarUrl += "&location=" + encodeURIComponent(event.location);
+  calendarUrl += "&text=" + encodeURIComponent(event.title);
+  calendarUrl += "&details=" + encodeURIComponent(event.description);
+
+  return <a onClick={onClick} href={calendarUrl} target="_blank">Google</a>;
+};
+
+const OutlookCalendar = ({ event, onClick }) => {
+  let calendarUrl = "https://outlook.live.com/owa/?rru=addevent";
+  calendarUrl += "&startdt=" + formatTime(event.startTime);
+  calendarUrl += "&enddt=" + formatTime(event.endTime);
+  calendarUrl += "&subject=" + encodeURIComponent(event.title);
+  calendarUrl += "&location=" + encodeURIComponent(event.location);
+  calendarUrl += "&body=" + encodeURIComponent(event.description);
+  calendarUrl += "&allday=false";
+  calendarUrl += "&uid=" + getRandomKey();
+  calendarUrl += "&path=/calendar/view/Month";
+
+  return <a onClick={onClick} href={calendarUrl} target="_blank">Outlook Web App</a>;
+};
+
+const YahooCalendar = ({ event, onClick }) => {
+  let duration = calculateDuration(event.startTime, event.endTime);
+  let calendarUrl = "https://calendar.yahoo.com/?v=60&view=d&type=20";
+  calendarUrl += "&title=" + encodeURIComponent(event.title);
+  calendarUrl += "&st=" + formatTime(event.startTime);
+  calendarUrl += "&dur=" + duration;
+  calendarUrl += "&desc=" + encodeURIComponent(event.description);
+  calendarUrl += "&in_loc=" + encodeURIComponent(event.location);
+
+  return <a onClick={onClick} href={calendarUrl} target="_blank">Yahoo</a>;
+};
+
 class AddToCalendar extends Component {
   constructor(props) {
     super(props);
 
     this.state = { optionsOpen: props.optionsOpen || false };
-
-    this.toggleCalendarDropdown = this.toggleCalendarDropdown.bind(this);
-    this.handleDropdownLinkClick = this.handleDropdownLinkClick.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  toggleCalendarDropdown() {
+  handleToggle() {
     let showOptions = !this.state.optionsOpen;
 
     if (showOptions) {
-      document.addEventListener("click", this.toggleCalendarDropdown, false);
+      document.addEventListener("click", this.handleToggle, false);
     } else {
-      document.removeEventListener("click", this.toggleCalendarDropdown);
+      document.removeEventListener("click", this.handleToggle);
     }
 
     this.setState({ optionsOpen: showOptions });
-  }
-
-  handleDropdownLinkClick(e) {
-    e.preventDefault();
-    let url = e.currentTarget.getAttribute("href");
-
-    if (!isMobile() && (url.startsWith("data") || url.startsWith("BEGIN"))) {
-      let filename = "download.ics";
-      let blob = new Blob([url], { type: "text/calendar;charset=utf-8" });
-
-      let link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute("download", filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      window.open(url, "_blank");
-    }
-
-    this.toggleCalendarDropdown();
   }
 
   render() {
@@ -157,7 +179,7 @@ class AddToCalendar extends Component {
     return (
       <div className="chq-atc">
         {event && (
-          <button type="button" className="chq-atc--button" onClick={this.toggleCalendarDropdown}>
+          <button type="button" className="chq-atc--button" onClick={this.handleToggle}>
             <svg width="20px" height="20px" viewBox="0 0 1024 1024">
               <path d="M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z" />
             </svg>
@@ -167,21 +189,11 @@ class AddToCalendar extends Component {
         )}
         {optionsOpen && (
           <div className="chq-atc--dropdown">
-            {listItems.map(listItem => {
-              let currentItem = Object.keys(listItem)[0];
-              let currentLabel = listItem[currentItem];
-
-              return (
-                <a
-                  key={getRandomKey()}
-                  onClick={this.handleDropdownLinkClick}
-                  href={buildUrl(event, currentItem)}
-                  target="_blank"
-                >
-                  {currentLabel}
-                </a>
-              );
-            })}
+            <ICSCalendar event={event} onClick={this.handleToggle} label="Apple Calendar" />
+            <GoogleCalendar event={event} onClick={this.handleToggle} />
+            <ICSCalendar event={event} onClick={this.handleToggle} label="Outlook" />
+            <OutlookCalendar event={event} onClick={this.handleToggle} />
+            <YahooCalendar event={event} onClick={this.handleToggle} />
           </div>
         )}
       </div>
@@ -198,14 +210,7 @@ AddToCalendar.defaultProps = {
     location: "Portland, OR",
     startTime: "2016-09-16T20:15:00-04:00",
     endTime: "2016-09-16T21:45:00-04:00"
-  },
-  listItems: [
-    { apple: "Apple Calendar" },
-    { google: "Google" },
-    { outlook: "Outlook" },
-    { outlookcom: "Outlook Web App" },
-    { yahoo: "Yahoo" }
-  ]
+  }
 };
 
 export default AddToCalendar;
