@@ -2,6 +2,6 @@
 /coverage
 /webpack*
 /docs/
-/example/
+/setupTests.js
 /src/
 /yarn*
