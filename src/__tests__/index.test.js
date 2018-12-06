@@ -32,12 +32,20 @@ test("allows clicking outside to close", () => {
 });
 
 test("allows clicking the button to toggle", () => {
-  const { container, getByText, getByLabelText } = render(<AddToCalendar event={mockEvent} />);
+  const { container, getByText } = render(<AddToCalendar event={mockEvent} />);
 
   fireEvent.click(getByText("Add to My Calendar"));
   expect(getDropped(container)).toBeTruthy();
 
   fireEvent.click(getByText("Add to My Calendar"));
+  expect(getDropped(container)).toBeFalsy();
+});
+
+test("ignores other updates when establishing listener", () => {
+  const { container, rerender } = render(<AddToCalendar event={mockEvent} />);
+
+  rerender(<AddToCalendar event={mockEvent} open />);
+
   expect(getDropped(container)).toBeFalsy();
 });
 
@@ -53,7 +61,7 @@ test("makes expected links", () => {
     expect(href).toContain(startTime);
   });
 
-  const [dataUri, duplicate, google, yahoo, outlook] = hrefs;
+  const [,, google, yahoo, outlook] = hrefs;
 
   expect(google).toContain("https://calendar.google.com");
 

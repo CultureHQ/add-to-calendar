@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-const makeTime = time => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, '');
+const makeTime = time => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, "");
 
 const makeUrl = (base, query) => Object.keys(query).reduce((accum, key, index) => (
   `${accum}${index === 0 ? "?" : "&"}${key}=${encodeURIComponent(query[key])}`
@@ -43,7 +43,7 @@ const makeYahooCalendarUrl = event => {
 };
 
 const Calendar = ({ children, download = false, href }) => (
-  <a download={download} href={href} target="_blank">
+  <a download={download} href={href} target="_blank" rel="noopener noreferrer">
     {children}
   </a>
 );
