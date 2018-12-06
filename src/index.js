@@ -27,7 +27,7 @@ const makeOutlookCalendarUrl = event => makeUrl("https://outlook.live.com/owa", 
 });
 
 const makeYahooCalendarUrl = event => {
-  const minutes = Math.floor((+event.endsAt - +event.startsAt) / 60 / 1000);
+  const minutes = Math.floor((+new Date(event.endsAt) - +new Date(event.startsAt)) / 60 / 1000);
   const duration = `${Math.floor(minutes / 60)}:${`0${minutes % 60}`.slice(-2)}`;
 
   return makeUrl("https://calendar.yahoo.com", {
@@ -42,13 +42,13 @@ const makeYahooCalendarUrl = event => {
   });
 };
 
-const Calendar = ({ children, download = false, href, onClick }) => (
-  <a download={download} href={href} onClick={onClick} target="_blank">
+const Calendar = ({ children, download = false, href }) => (
+  <a download={download} href={href} target="_blank">
     {children}
   </a>
 );
 
-const ICSCalendar = ({ children, event, onClick }) => {
+const ICSCalendar = ({ children, event }) => {
   const components = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
@@ -64,7 +64,7 @@ const ICSCalendar = ({ children, event, onClick }) => {
   ];
 
   const href = encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
-  return <Calendar href={href} onClick={onClick} download>{children}</Calendar>;
+  return <Calendar href={href} download>{children}</Calendar>;
 };
 
 class AddToCalendar extends PureComponent {
@@ -75,20 +75,37 @@ class AddToCalendar extends PureComponent {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
+  componentDidMount() {
+    this.componentIsMounted = true;
+    this.configureListener();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { open } = this.state;
 
     if (open !== prevState.open) {
-      if (open) {
-        document.addEventListener("click", this.handleToggle);
-      } else {
-        document.removeEventListener("click", this.handleToggle);
-      }
+      this.configureListener();
+    }
+  }
+
+  componentWillUnmount() {
+    this.componentIsMounted = false;
+  }
+
+  configureListener() {
+    const { open } = this.state;
+
+    if (open) {
+      document.addEventListener("click", this.handleToggle);
+    } else {
+      document.removeEventListener("click", this.handleToggle);
     }
   }
 
   handleToggle() {
-    this.setState(({ open }) => ({ open: !open }));
+    if (this.componentIsMounted) {
+      this.setState(({ open }) => ({ open: !open }));
+    }
   }
 
   render() {
@@ -108,19 +125,19 @@ class AddToCalendar extends PureComponent {
         )}
         {open && (
           <div className="chq-atc--dropdown">
-            <ICSCalendar event={event} onClick={this.handleToggle}>
+            <ICSCalendar event={event}>
               Apple Calendar
             </ICSCalendar>
-            <Calendar href={makeGoogleCalendarUrl(event)} onClick={this.handleToggle}>
+            <Calendar href={makeGoogleCalendarUrl(event)}>
               Google
             </Calendar>
-            <ICSCalendar event={event} onClick={this.handleToggle}>
+            <ICSCalendar event={event}>
               Outlook
             </ICSCalendar>
-            <Calendar href={makeOutlookCalendarUrl(event)} onClick={this.handleToggle}>
+            <Calendar href={makeOutlookCalendarUrl(event)}>
               Outlook Web App
             </Calendar>
-            <Calendar href={makeYahooCalendarUrl(event)} onClick={this.handleToggle}>
+            <Calendar href={makeYahooCalendarUrl(event)}>
               Yahoo
             </Calendar>
           </div>
