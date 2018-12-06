@@ -15,17 +15,14 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
     startsAt: "2018-12-06T17:00:00-05:00",
     endsAt: "2018-12-06T18:00:00-05:00"
   }}
-  open={false}
->
-  Add to My Calendar
-</AddToCalendar>
+/>
 ```
 
 To get the styles, be sure it import `@culturehq/add-to-calendar/dist/styles.css` into your application. You can style it appropriately for your app by overriding the CSS classes used internally. They are listed in [`styles.css`](src/styles.css).
 
 ### `children`
 
-The label for the button that triggers the dropdown
+The label for the button that triggers the dropdown. Defaults to `"Add to My Calendar"`.
 
 ### `event`
 
@@ -39,7 +36,7 @@ Should be an object representing the event to be added to the various calendars.
 
 ### `open`
 
-Whether or not the dropdown should start open. (Will be ignored after initial render.)
+Defaults to `false`. Whether or not the dropdown should start open. (Will be ignored after initial render.)
 
 ## Credit
 
