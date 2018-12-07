@@ -41,10 +41,6 @@ Should be an object representing the event to be added to the various calendars.
 
 Defaults to `false`. Whether or not the dropdown should start open. (Will be ignored after initial render.)
 
-## Credit
-
-This package is 
-
 ## Testing locally
 
 You can run the tests by running `yarn test` and lint by running `yarn lint`. You can run the local server by running `yarn start` which will start the docs server on `http://localhost:8080`.
