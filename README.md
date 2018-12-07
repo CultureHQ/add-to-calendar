@@ -1,5 +1,8 @@
 # @culturehq/add-to-calendar
 
+[![Build Status](https://travis-ci.com/CultureHQ/add-to-calendar.svg?branch=master)](https://travis-ci.com/CultureHQ/add-to-calendar)
+[![Package Version](https://img.shields.io/npm/v/@culturehq/add-to-calendar.svg)](https://www.npmjs.com/package/@culturehq/add-to-calendar)
+
 A small package for adding an event to a calendar.
 
 ## Getting started
