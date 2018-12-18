@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 
-import AddToCalendar from "../src";
+import AddToCalendar from "../src/AddToCalendar";
 import "../src/styles.css";
 
 const Field = ({ children, name, value, setValue }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
 
-import AddToCalendar from "../index";
+import AddToCalendar from "../AddToCalendar";
 
 const mockEvent = {
   name: "Happy Hour",
