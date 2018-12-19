@@ -5,19 +5,19 @@ workflow "Main" {
 
 action "Install" {
   uses = "CultureHQ/actions-yarn@master"
-  runs = "install"
+  args = "install"
 }
 
 action "Lint" {
   needs = "Install"
   uses = "CultureHQ/actions-yarn@master"
-  runs = "lint"
+  args = "lint"
 }
 
 action "Test" {
   needs = "Install"
   uses = "CultureHQ/actions-yarn@master"
-  runs = "test"
+  args = "test"
 }
 
 action "Publish Filter" {
