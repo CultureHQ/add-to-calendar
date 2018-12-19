@@ -1,6 +1,6 @@
 workflow "Main" {
   on = "push"
-  resolves = ["Lint", "Test"]
+  resolves = ["Publish"]
 }
 
 action "Install" {
