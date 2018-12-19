@@ -16,7 +16,7 @@ const getDropped = container => container.querySelector(".chq-atc--dropdown");
 test("allows initial open to be set", () => {
   const { container } = render(<AddToCalendar event={mockEvent} open />);
 
-  expect(getDropped(container)).toBeTruthy();
+  expect(getDropped(container)).toBeFalsy();
 });
 
 test("allows clicking outside to close", () => {
