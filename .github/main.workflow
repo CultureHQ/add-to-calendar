@@ -4,9 +4,11 @@ workflow "Main" {
 }
 
 action "Lint" {
-  uses = "./.github/lint"
+  uses = "CultureHQ/actions-yarn@master"
+  runs = "yarn install && yarn lint"
 }
 
 action "Test" {
-  uses = "./.github/test"
+  uses = "CultureHQ/actions-yarn@master"
+  runs = "yarn install && yarn test"
 }
