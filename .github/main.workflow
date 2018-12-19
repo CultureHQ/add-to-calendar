@@ -1,6 +1,6 @@
 workflow "Main" {
   on = "push"
-  resolves = "Publish Filter"
+  resolves = ["Lint", "Test"]
 }
 
 action "Install" {
@@ -18,10 +18,4 @@ action "Test" {
   needs = "Install"
   uses = "CultureHQ/actions-yarn@master"
   args = "test"
-}
-
-action "Publish Filter" {
-  needs = ["Lint", "Test"]
-  uses = "actions/bin/filter@master"
-  args = "branch master"
 }
