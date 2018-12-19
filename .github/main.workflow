@@ -4,18 +4,18 @@ workflow "Main" {
 }
 
 action "Install" {
-  uses = "CultureHQ/actions-yarn@master"
+  uses = "docker://culturehq/actions-yarn:latest"
   args = "install"
 }
 
 action "Lint" {
   needs = "Install"
-  uses = "CultureHQ/actions-yarn@master"
+  uses = "docker://culturehq/actions-yarn:latest"
   args = "lint"
 }
 
 action "Test" {
   needs = "Install"
-  uses = "CultureHQ/actions-yarn@master"
+  uses = "docker://culturehq/actions-yarn:latest"
   args = "test"
 }
