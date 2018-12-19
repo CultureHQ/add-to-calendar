@@ -165,8 +165,7 @@ function (_PureComponent) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          _this$props$children = _this$props.children,
-          children = _this$props$children === void 0 ? "Add to My Calendar" : _this$props$children,
+          children = _this$props.children,
           event = _this$props.event;
       var open = this.state.open;
       return _react.default.createElement("div", {
@@ -200,5 +199,8 @@ function (_PureComponent) {
   return AddToCalendar;
 }(_react.PureComponent);
 
+AddToCalendar.defaultProps = {
+  children: "Add to My Calendar"
+};
 var _default = AddToCalendar;
 exports.default = _default;

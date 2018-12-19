@@ -109,7 +109,7 @@ class AddToCalendar extends PureComponent {
   }
 
   render() {
-    const { children = "Add to My Calendar", event } = this.props;
+    const { children, event } = this.props;
     const { open } = this.state;
 
     return (
@@ -146,5 +146,9 @@ class AddToCalendar extends PureComponent {
     );
   }
 }
+
+AddToCalendar.defaultProps = {
+  children: "Add to My Calendar"
+};
 
 export default AddToCalendar;

@@ -1,6 +1,6 @@
 {
   "name": "@culturehq/add-to-calendar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small package for adding an event to a calendar.",
   "main": "dist/AddToCalendar.js",
   "scripts": {
@@ -43,9 +43,9 @@
     "jest": "^23.6.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
-    "react-testing-library": "^5.4.0",
+    "react-testing-library": "^5.4.1",
     "style-loader": "^0.23.0",
-    "webpack": "^4.27.0",
+    "webpack": "^4.28.0",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.9"
   },
