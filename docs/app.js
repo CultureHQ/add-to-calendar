@@ -53,6 +53,10 @@ const App = () => {
             <a href="https://github.com/CultureHQ/add-to-calendar">
               github.com/CultureHQ/add-to-calendar
             </a>
+            <br />
+            <a href="https://engineering.culturehq.com">
+              engineering.culturehq.com
+            </a>
           </p>
         </footer>,
         document.body
