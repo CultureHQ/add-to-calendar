@@ -1,6 +1,22 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
 import makeUrls from "./makeUrls";
+
+const useAutoFocus = () => {
+  const ref = useRef(null);
+
+  useEffect(
+    () => {
+      const { activeElement } = document;
+      ref.current.focus();
+
+      return () => activeElement.focus();
+    },
+    []
+  );
+
+  return ref;
+};
 
 const useOpenState = initialOpen => {
   const [open, setOpen] = useState(initialOpen);
@@ -21,15 +37,39 @@ const useOpenState = initialOpen => {
   return [open, onToggle];
 };
 
-const Calendar = ({ children, download = false, href }) => (
-  <a download={download} href={href} target="_blank" rel="noopener noreferrer">
+const Calendar = React.forwardRef(({ children, download = false, href }, ref) => (
+  <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
     {children}
   </a>
-);
+));
+
+const Dropdown = ({ urls }) => {
+  const ref = useAutoFocus();
+
+  return (
+    <div className="chq-atc--dropdown">
+      <Calendar href={urls.ics} download ref={ref}>
+        Apple Calendar
+      </Calendar>
+      <Calendar href={urls.google}>
+        Google
+      </Calendar>
+      <Calendar href={urls.ics} download>
+        Outlook
+      </Calendar>
+      <Calendar href={urls.outlook}>
+        Outlook Web App
+      </Calendar>
+      <Calendar href={urls.yahoo}>
+        Yahoo
+      </Calendar>
+    </div>
+  );
+};
 
 const AddToCalendar = ({ children = "Add to My Calendar", event, open: initialOpen }) => {
-  const urls = useMemo(() => makeUrls(event), [event]);
   const [open, onToggle] = useOpenState(initialOpen);
+  const urls = useMemo(() => makeUrls(event), [event]);
 
   return (
     <div className="chq-atc">
@@ -42,25 +82,7 @@ const AddToCalendar = ({ children = "Add to My Calendar", event, open: initialOp
           {children}
         </button>
       )}
-      {open && (
-        <div className="chq-atc--dropdown">
-          <Calendar href={urls.ics} download>
-            Apple Calendar
-          </Calendar>
-          <Calendar href={urls.google}>
-            Google
-          </Calendar>
-          <Calendar href={urls.ics} download>
-            Outlook
-          </Calendar>
-          <Calendar href={urls.outlook}>
-            Outlook Web App
-          </Calendar>
-          <Calendar href={urls.yahoo}>
-            Yahoo
-          </Calendar>
-        </div>
-      )}
+      {open && <Dropdown urls={urls} />}
     </div>
   );
 };
