@@ -7,200 +7,137 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _makeUrls = _interopRequireDefault(require("./makeUrls"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-var makeTime = function makeTime(time) {
-  return new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, "");
+var useAutoFocus = function useAutoFocus() {
+  var ref = (0, _react.useRef)(null);
+  (0, _react.useEffect)(function () {
+    var _document = document,
+        activeElement = _document.activeElement;
+    ref.current.focus();
+    return function () {
+      return activeElement.focus();
+    };
+  }, []);
+  return ref;
 };
 
-var makeUrl = function makeUrl(base, query) {
-  return Object.keys(query).reduce(function (accum, key, index) {
-    return "".concat(accum).concat(index === 0 ? "?" : "&").concat(key, "=").concat(encodeURIComponent(query[key]));
-  }, base);
+var useOpenState = function useOpenState(initialOpen) {
+  var _useState = (0, _react.useState)(initialOpen),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  var onToggle = (0, _react.useCallback)(function () {
+    return setOpen(function (current) {
+      return !current;
+    });
+  }, [setOpen]);
+  (0, _react.useEffect)(function () {
+    if (open) {
+      var onClose = function onClose() {
+        return setOpen(false);
+      };
+
+      document.addEventListener("click", onClose);
+      return function () {
+        return document.removeEventListener("click", onClose);
+      };
+    }
+
+    return undefined;
+  }, [open, setOpen]);
+  return [open, onToggle];
 };
 
-var makeGoogleCalendarUrl = function makeGoogleCalendarUrl(event) {
-  return makeUrl("https://calendar.google.com/calendar/render", {
-    action: "TEMPLATE",
-    dates: "".concat(makeTime(event.startsAt), "/").concat(makeTime(event.endsAt)),
-    location: event.location,
-    text: event.name,
-    details: event.details
-  });
-};
-
-var makeOutlookCalendarUrl = function makeOutlookCalendarUrl(event) {
-  return makeUrl("https://outlook.live.com/owa", {
-    rru: "addevent",
-    startdt: makeTime(event.startsAt),
-    enddt: makeTime(event.endsAt),
-    subject: event.name,
-    location: event.location,
-    body: event.details,
-    allday: false,
-    uid: new Date().getTime().toString(),
-    path: "/calendar/view/Month"
-  });
-};
-
-var makeYahooCalendarUrl = function makeYahooCalendarUrl(event) {
-  var minutes = Math.floor((+new Date(event.endsAt) - +new Date(event.startsAt)) / 60 / 1000);
-  var duration = "".concat(Math.floor(minutes / 60), ":").concat("0".concat(minutes % 60).slice(-2));
-  return makeUrl("https://calendar.yahoo.com", {
-    v: 60,
-    view: "d",
-    type: 20,
-    title: event.name,
-    st: makeTime(event.startsAt),
-    dur: duration,
-    desc: event.details,
-    in_loc: event.location
-  });
-};
-
-var Calendar = function Calendar(_ref) {
+var Calendar = _react.default.forwardRef(function (_ref, ref) {
   var children = _ref.children,
       _ref$download = _ref.download,
       download = _ref$download === void 0 ? false : _ref$download,
       href = _ref.href;
   return _react.default.createElement("a", {
+    ref: ref,
     download: download,
     href: href,
     target: "_blank",
     rel: "noopener noreferrer"
   }, children);
-};
+});
 
-var ICSCalendar = function ICSCalendar(_ref2) {
-  var children = _ref2.children,
-      event = _ref2.event;
-  var components = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", "URL:".concat(document.URL), "DTSTART:".concat(makeTime(event.startsAt)), "DTEND:".concat(makeTime(event.endsAt)), "SUMMARY:".concat(event.name), "DESCRIPTION:".concat(event.details), "LOCATION:".concat(event.location), "END:VEVENT", "END:VCALENDAR"];
-  var href = encodeURI("data:text/calendar;charset=utf8,".concat(components.join("\n")));
-  return _react.default.createElement(Calendar, {
-    href: href,
+var Dropdown = function Dropdown(_ref2) {
+  var onToggle = _ref2.onToggle,
+      urls = _ref2.urls;
+  var ref = useAutoFocus();
+  var onKeyDown = (0, _react.useCallback)(function (_ref3) {
+    var key = _ref3.key;
+
+    if (key === "Escape") {
+      onToggle();
+    }
+  }, [onToggle]);
+  return _react.default.createElement("div", {
+    className: "chq-atc--dropdown",
+    onKeyDown: onKeyDown,
+    role: "presentation"
+  }, _react.default.createElement(Calendar, {
+    href: urls.ics,
+    download: true,
+    ref: ref
+  }, "Apple Calendar"), _react.default.createElement(Calendar, {
+    href: urls.google
+  }, "Google"), _react.default.createElement(Calendar, {
+    href: urls.ics,
     download: true
-  }, children);
+  }, "Outlook"), _react.default.createElement(Calendar, {
+    href: urls.outlook
+  }, "Outlook Web App"), _react.default.createElement(Calendar, {
+    href: urls.yahoo
+  }, "Yahoo"));
 };
 
-var AddToCalendar =
-/*#__PURE__*/
-function (_PureComponent) {
-  _inherits(AddToCalendar, _PureComponent);
+var AddToCalendar = function AddToCalendar(_ref4) {
+  var _ref4$children = _ref4.children,
+      children = _ref4$children === void 0 ? "Add to My Calendar" : _ref4$children,
+      event = _ref4.event,
+      initialOpen = _ref4.open;
 
-  function AddToCalendar(props) {
-    var _this;
+  var _useOpenState = useOpenState(initialOpen),
+      _useOpenState2 = _slicedToArray(_useOpenState, 2),
+      open = _useOpenState2[0],
+      onToggle = _useOpenState2[1];
 
-    _classCallCheck(this, AddToCalendar);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AddToCalendar).call(this, props));
-    _this.state = {
-      open: props.open || false
-    };
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
-
-  _createClass(AddToCalendar, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.componentIsMounted = true;
-      this.configureListener();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      var open = this.state.open;
-
-      if (open !== prevState.open) {
-        this.configureListener();
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.componentIsMounted = false;
-    }
-  }, {
-    key: "configureListener",
-    value: function configureListener() {
-      var open = this.state.open;
-
-      if (open) {
-        document.addEventListener("click", this.handleToggle);
-      } else {
-        document.removeEventListener("click", this.handleToggle);
-      }
-    }
-  }, {
-    key: "handleToggle",
-    value: function handleToggle() {
-      if (this.componentIsMounted) {
-        this.setState(function (_ref3) {
-          var open = _ref3.open;
-          return {
-            open: !open
-          };
-        });
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          children = _this$props.children,
-          event = _this$props.event;
-      var open = this.state.open;
-      return _react.default.createElement("div", {
-        className: "chq-atc"
-      }, event && _react.default.createElement("button", {
-        type: "button",
-        className: "chq-atc--button",
-        onClick: this.handleToggle
-      }, _react.default.createElement("svg", {
-        width: "20px",
-        height: "20px",
-        viewBox: "0 0 1024 1024"
-      }, _react.default.createElement("path", {
-        d: "M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z"
-      })), " ", children), open && _react.default.createElement("div", {
-        className: "chq-atc--dropdown"
-      }, _react.default.createElement(ICSCalendar, {
-        event: event
-      }, "Apple Calendar"), _react.default.createElement(Calendar, {
-        href: makeGoogleCalendarUrl(event)
-      }, "Google"), _react.default.createElement(ICSCalendar, {
-        event: event
-      }, "Outlook"), _react.default.createElement(Calendar, {
-        href: makeOutlookCalendarUrl(event)
-      }, "Outlook Web App"), _react.default.createElement(Calendar, {
-        href: makeYahooCalendarUrl(event)
-      }, "Yahoo")));
-    }
-  }]);
-
-  return AddToCalendar;
-}(_react.PureComponent);
-
-AddToCalendar.defaultProps = {
-  children: "Add to My Calendar"
+  var urls = (0, _react.useMemo)(function () {
+    return (0, _makeUrls.default)(event);
+  }, [event]);
+  return _react.default.createElement("div", {
+    className: "chq-atc"
+  }, event && _react.default.createElement("button", {
+    type: "button",
+    className: "chq-atc--button",
+    onClick: onToggle
+  }, _react.default.createElement("svg", {
+    width: "20px",
+    height: "20px",
+    viewBox: "0 0 1024 1024"
+  }, _react.default.createElement("path", {
+    d: "M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z"
+  })), " ", children), open && _react.default.createElement(Dropdown, {
+    onToggle: onToggle,
+    urls: urls
+  }));
 };
+
 var _default = AddToCalendar;
 exports.default = _default;
