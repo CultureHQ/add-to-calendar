@@ -43,11 +43,19 @@ const Calendar = React.forwardRef(({ children, download = false, href }, ref) =>
   </a>
 ));
 
-const Dropdown = ({ urls }) => {
+const Dropdown = ({ onToggle, urls }) => {
   const ref = useAutoFocus();
+  const onKeyDown = useCallback(
+    ({ key }) => {
+      if (key === "Escape") {
+        onToggle();
+      }
+    },
+    [onToggle]
+  );
 
   return (
-    <div className="chq-atc--dropdown">
+    <div className="chq-atc--dropdown" onKeyDown={onKeyDown}>
       <Calendar href={urls.ics} download ref={ref}>
         Apple Calendar
       </Calendar>
@@ -82,7 +90,7 @@ const AddToCalendar = ({ children = "Add to My Calendar", event, open: initialOp
           {children}
         </button>
       )}
-      {open && <Dropdown urls={urls} />}
+      {open && <Dropdown onToggle={onToggle} urls={urls} />}
     </div>
   );
 };
