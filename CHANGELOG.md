@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-03-12
+### Added
+- Properly handles focus by focusing on the first link when the dropdown is rendered and then passing it back to the previous active element when the dropdown is hidden.
+- Keyboard handling on the dropdown to allow the user to hit escape to close it.
+
+### Changed
+- Rewrote the state management using hooks (and updated the `react` and `react-dom` dependencies to require 16.8).
+
 ## [0.2.0] - 2018-12-19
 ### Changed
 - Document the default wording using the `defaultProps` static value.
@@ -14,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - Initial release 🎉
 
-[Unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/CultureHQ/add-to-calendar/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/CultureHQ/add-to-calendar/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/CultureHQ/add-to-calendar/compare/d105a7...v0.1.0
