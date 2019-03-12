@@ -30,6 +30,8 @@ const useOpenState = initialOpen => {
 
         return () => document.removeEventListener("click", onClose);
       }
+
+      return undefined;
     },
     [open, setOpen]
   );
@@ -55,7 +57,7 @@ const Dropdown = ({ onToggle, urls }) => {
   );
 
   return (
-    <div className="chq-atc--dropdown" onKeyDown={onKeyDown}>
+    <div className="chq-atc--dropdown" onKeyDown={onKeyDown} role="presentation">
       <Calendar href={urls.ics} download ref={ref}>
         Apple Calendar
       </Calendar>
