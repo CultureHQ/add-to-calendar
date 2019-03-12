@@ -19,6 +19,10 @@
   padding: 4px 10px;
 }
 
+.chq-atc--button:focus {
+  background-color: #eaeaea;
+}
+
 .chq-atc--button:hover {
   background-color: #eaeaea;
 }
