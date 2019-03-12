@@ -5,7 +5,7 @@ import AddToCalendar from "../src/AddToCalendar";
 import "../src/styles.css";
 
 const Field = ({ children, name, value, setValue }) => {
-  const onChange = useCallback(event => setValue(event.target.value));
+  const onChange = useCallback(event => setValue(event.target.value), [setValue]);
 
   return (
     <label htmlFor={name}>

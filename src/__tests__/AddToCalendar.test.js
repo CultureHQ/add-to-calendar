@@ -32,7 +32,7 @@ test("allows clicking outside to close", () => {
 });
 
 test("allows clicking the button to toggle", () => {
-  const { container, getByText } = render(<AddToCalendar event={mockEvent} />);
+  const { debug, container, getByText } = render(<AddToCalendar event={mockEvent} />);
 
   fireEvent.click(getByText("Add to My Calendar"));
   expect(getDropped(container)).toBeTruthy();
