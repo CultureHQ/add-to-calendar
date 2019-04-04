@@ -7,9 +7,9 @@
     "build": "yarn build:js && yarn build:docs",
     "build:js": "babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
     "build:docs": "webpack --mode production",
-    "lint": "eslint .",
+    "lint": "chq-scripts lint",
     "start": "webpack-dev-server --mode development --hot",
-    "test": "jest"
+    "test": "chq-scripts test"
   },
   "repository": {
     "type": "git",
@@ -26,27 +26,19 @@
     "react-dom": ">= 16.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
-    "@culturehq/eslint-config": "^1.0.0",
-    "babel-jest": "^24.5.0",
+    "@culturehq/scripts": "^0.1.3",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
-    "eslint": "^5.15.1",
-    "jest": "^24.5.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-testing-library": "^6.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-testing-library": "^6.0.4",
     "style-loader": "^0.23.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
+    "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "./setupTests.js"
-    ]
   }
 }
