@@ -48,7 +48,7 @@ const App = () => {
       {ReactDOM.createPortal(
         <footer>
           <p>
-            Copyright (c) 2018 CultureHQ
+            Copyright (c) 2018-present CultureHQ
             <br />
             <a href="https://github.com/CultureHQ/add-to-calendar">
               github.com/CultureHQ/add-to-calendar
