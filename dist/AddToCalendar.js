@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
 var _makeUrls = _interopRequireDefault(require("./makeUrls"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -62,12 +62,12 @@ var useOpenState = function useOpenState(initialOpen) {
   return [open, onToggle];
 };
 
-var Calendar = _react.default.forwardRef(function (_ref, ref) {
+var Calendar = _react["default"].forwardRef(function (_ref, ref) {
   var children = _ref.children,
       _ref$download = _ref.download,
       download = _ref$download === void 0 ? false : _ref$download,
       href = _ref.href;
-  return _react.default.createElement("a", {
+  return _react["default"].createElement("a", {
     ref: ref,
     download: download,
     href: href,
@@ -87,22 +87,22 @@ var Dropdown = function Dropdown(_ref2) {
       onToggle();
     }
   }, [onToggle]);
-  return _react.default.createElement("div", {
+  return _react["default"].createElement("div", {
     className: "chq-atc--dropdown",
     onKeyDown: onKeyDown,
     role: "presentation"
-  }, _react.default.createElement(Calendar, {
+  }, _react["default"].createElement(Calendar, {
     href: urls.ics,
     download: true,
     ref: ref
-  }, "Apple Calendar"), _react.default.createElement(Calendar, {
+  }, "Apple Calendar"), _react["default"].createElement(Calendar, {
     href: urls.google
-  }, "Google"), _react.default.createElement(Calendar, {
+  }, "Google"), _react["default"].createElement(Calendar, {
     href: urls.ics,
     download: true
-  }, "Outlook"), _react.default.createElement(Calendar, {
+  }, "Outlook"), _react["default"].createElement(Calendar, {
     href: urls.outlook
-  }, "Outlook Web App"), _react.default.createElement(Calendar, {
+  }, "Outlook Web App"), _react["default"].createElement(Calendar, {
     href: urls.yahoo
   }, "Yahoo"));
 };
@@ -119,25 +119,25 @@ var AddToCalendar = function AddToCalendar(_ref4) {
       onToggle = _useOpenState2[1];
 
   var urls = (0, _react.useMemo)(function () {
-    return (0, _makeUrls.default)(event);
+    return (0, _makeUrls["default"])(event);
   }, [event]);
-  return _react.default.createElement("div", {
+  return _react["default"].createElement("div", {
     className: "chq-atc"
-  }, event && _react.default.createElement("button", {
+  }, event && _react["default"].createElement("button", {
     type: "button",
     className: "chq-atc--button",
     onClick: onToggle
-  }, _react.default.createElement("svg", {
+  }, _react["default"].createElement("svg", {
     width: "20px",
     height: "20px",
     viewBox: "0 0 1024 1024"
-  }, _react.default.createElement("path", {
+  }, _react["default"].createElement("path", {
     d: "M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z"
-  })), " ", children), open && _react.default.createElement(Dropdown, {
+  })), " ", children), open && _react["default"].createElement(Dropdown, {
     onToggle: onToggle,
     urls: urls
   }));
 };
 
 var _default = AddToCalendar;
-exports.default = _default;
+exports["default"] = _default;

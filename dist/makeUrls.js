@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var makeDuration = function makeDuration(event) {
   var minutes = Math.floor((+new Date(event.endsAt) - +new Date(event.startsAt)) / 60 / 1000);
@@ -72,4 +72,4 @@ var makeUrls = function makeUrls(event) {
 };
 
 var _default = makeUrls;
-exports.default = _default;
+exports["default"] = _default;
