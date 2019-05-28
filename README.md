@@ -43,3 +43,11 @@ Defaults to `false`. Whether or not the dropdown should start open. (Will be ign
 ## Testing locally
 
 You can run the tests by running `yarn test` and lint by running `yarn lint`. You can run the local server by running `yarn start` which will start the docs server on `http://localhost:8080`.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/CultureHQ/add-to-calendar.
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
