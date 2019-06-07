@@ -30,11 +30,11 @@ The label for the button that triggers the dropdown. Defaults to `"Add to My Cal
 
 Should be an object representing the event to be added to the various calendars. The keys are:
 
-* `name` - the name of the event
-* `details` - the details of the event
-* `location` - the location of the event
-* `startsAt` - the start time of the event, formatted as an ISO string
-* `endsAt` - the end time of the event, formatted as an ISO string
+- `name` - the name of the event
+- `details` - the details of the event
+- `location` - the location of the event
+- `startsAt` - the start time of the event, formatted as an ISO string
+- `endsAt` - the end time of the event, formatted as an ISO string
 
 ### `open`
 

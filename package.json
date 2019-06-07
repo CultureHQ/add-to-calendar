@@ -1,13 +1,12 @@
 {
   "name": "@culturehq/add-to-calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small package for adding an event to a calendar.",
   "main": "dist/AddToCalendar.js",
   "scripts": {
-    "build": "yarn build:js && yarn build:docs",
-    "build:js": "babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
-    "build:docs": "webpack --mode production",
+    "docs": "webpack --mode production",
     "lint": "chq-scripts lint",
+    "prepublishOnly": "rm dist/* && babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },
@@ -38,7 +37,7 @@
     "react-dom": "^16.8.6",
     "style-loader": "^0.23.0",
     "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.6.0"
+    "webpack-cli": "^3.3.3",
+    "webpack-dev-server": "^3.7.1"
   }
 }
