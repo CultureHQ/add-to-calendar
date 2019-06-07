@@ -6,7 +6,7 @@
   "scripts": {
     "docs": "webpack --mode production",
     "lint": "chq-scripts lint",
-    "prepublishOnly": "rm dist/* && babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
+    "prepublishOnly": "rm -f dist/* && babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },
