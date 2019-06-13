@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.2] - 2019-06-13
+
+### Changed
+
+- Switch the background of the main button from `inherit` to `transparent`, as this is better supported in IE11.
+
 ## [1.0.1] - 2019-06-07
 
 ### Changed
@@ -37,7 +43,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial release 🎉
 
-[unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/CultureHQ/add-to-calendar/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/CultureHQ/add-to-calendar/compare/v0.1.0...v0.2.0

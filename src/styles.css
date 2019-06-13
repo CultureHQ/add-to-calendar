@@ -4,7 +4,7 @@
 }
 
 .chq-atc--button {
-  background: inherit;
+  background: transparent;
   border: 0;
   border-radius: 5px;
   box-sizing: border-box;
