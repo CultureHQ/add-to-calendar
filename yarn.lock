@@ -854,10 +854,10 @@
     eslint-plugin-react "^7.14.1"
     eslint-plugin-react-hooks "^1.6.0"
 
-"@culturehq/scripts@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-2.0.0.tgz#79b7ecb73848f85c2da9f69e619a8fa419560922"
-  integrity sha512-Mwp8Fk/x/sqkr3OiVAAMwpuknRQkBU1roZiVcUvi3QvCL2SD18euAOVqOZFTh/+kTE0rMygEAKoyB0QDvZodHg==
+"@culturehq/scripts@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-2.1.0.tgz#4db98e68b45c819c8e251d39399907308251f0d3"
+  integrity sha512-C4tPM08cOfYbwzmVcCUFbi2QRUxXGiQRokyBFyXheamrvoSPBM2+TUUYTr0ZRg5auRmLoC2P2rFHduzTl4oiAQ==
   dependencies:
     "@babel/core" "^7.4.5"
     "@culturehq/eslint-config" "^2.0.0"
@@ -1027,10 +1027,10 @@
     pretty-format "^24.8.0"
     wait-for-expect "^1.2.0"
 
-"@testing-library/react@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-8.0.1.tgz#91c254adf855b13de50020613cb5d3915f9f7875"
-  integrity sha512-N/1pJfhEnNYkGyxuw4xbp03evaS0z/CT8o0QgTfJqGlukAcU15xf9uU1w03NHKZJcU69nOCBAoAkXHtHzYwMbg==
+"@testing-library/react@^8.0.4":
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-8.0.4.tgz#6ed405ba88b625ec53d7cfa78c038a950bafc1fa"
+  integrity sha512-omm4D00Z0aMaWfPRRP4X6zIaOVb0Kf1Yc1H5VE4id9D0pQRiBcTtmjbN0kZgT8rQGxHhVAuv1NuwFwMTwKzFqg==
   dependencies:
     "@babel/runtime" "^7.4.5"
     "@testing-library/dom" "^5.0.0"
