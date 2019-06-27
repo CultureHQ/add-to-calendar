@@ -841,26 +841,26 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@culturehq/eslint-config@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@culturehq/eslint-config/-/eslint-config-2.0.0.tgz#bea95523c65439f8f74b131c2efe1b885b2abf69"
-  integrity sha512-pkGJ7xlAReXZocGi5qJGsC2/SDSIAHyxp9wGQPUs9oaoy4YbEmOwO3h0ExbpzaZ/m3edkelub/ma0NTKAjQcjA==
+"@culturehq/eslint-config@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@culturehq/eslint-config/-/eslint-config-2.1.0.tgz#609634a745aa5c99302993c74560d6a753b5e942"
+  integrity sha512-bszPOBZCWsEFX8XzIu/pKmP2wenii9sCqvwo+9C4G3Xgb/4BVZDGslkcd52o1b7vAUkMuNScLtNSrWbZWNLedw==
   dependencies:
     babel-eslint "^10.0.1"
     eslint-config-airbnb "^17.1.0"
     eslint-plugin-filenames "^1.3.2"
-    eslint-plugin-import "^2.17.2"
+    eslint-plugin-import "^2.18.0"
     eslint-plugin-jsx-a11y "^6.2.1"
-    eslint-plugin-react "^7.14.1"
-    eslint-plugin-react-hooks "^1.6.0"
+    eslint-plugin-react "^7.14.2"
+    eslint-plugin-react-hooks "^1.6.1"
 
 "@culturehq/scripts@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-2.1.0.tgz#4db98e68b45c819c8e251d39399907308251f0d3"
-  integrity sha512-C4tPM08cOfYbwzmVcCUFbi2QRUxXGiQRokyBFyXheamrvoSPBM2+TUUYTr0ZRg5auRmLoC2P2rFHduzTl4oiAQ==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-2.2.0.tgz#fd3feec6d067f9854ed2a9e51258847d1f04c4c4"
+  integrity sha512-ZL7jtTbS3i4S/92+6k8rXSy54nXaiMJD0ge6Xz9JoG55DZKKsDu3Dhtl0IOVxBRBIQdmzgYswaCyFUnl3TO3yA==
   dependencies:
     "@babel/core" "^7.4.5"
-    "@culturehq/eslint-config" "^2.0.0"
+    "@culturehq/eslint-config" "^2.1.0"
     babel-jest "^24.8.0"
     eslint "^6.0.0"
     jest "^24.8.0"
@@ -2770,10 +2770,10 @@ eslint-plugin-filenames@^1.3.2:
     lodash.snakecase "4.1.1"
     lodash.upperfirst "4.3.1"
 
-eslint-plugin-import@^2.17.2:
-  version "2.17.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.17.3.tgz#00548b4434c18faebaba04b24ae6198f280de189"
-  integrity sha512-qeVf/UwXFJbeyLbxuY8RgqDyEKCkqV7YC+E5S5uOjAp4tOc8zj01JP3ucoBM8JcEqd1qRasJSg6LLlisirfy0Q==
+eslint-plugin-import@^2.18.0:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.18.0.tgz#7a5ba8d32622fb35eb9c8db195c2090bd18a3678"
+  integrity sha512-PZpAEC4gj/6DEMMoU2Df01C5c50r7zdGIN52Yfi7CvvWaYssG7Jt5R9nFG5gmqodxNOz9vQS87xk6Izdtpdrig==
   dependencies:
     array-includes "^3.0.3"
     contains-path "^0.1.0"
@@ -2801,15 +2801,15 @@ eslint-plugin-jsx-a11y@^6.2.1:
     has "^1.0.3"
     jsx-ast-utils "^2.0.1"
 
-eslint-plugin-react-hooks@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.6.0.tgz#348efcda8fb426399ac7b8609607c7b4025a6f5f"
-  integrity sha512-lHBVRIaz5ibnIgNG07JNiAuBUeKhEf8l4etNx5vfAEwqQ5tcuK3jV9yjmopPgQDagQb7HwIuQVsE3IVcGrRnag==
+eslint-plugin-react-hooks@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.6.1.tgz#3c66a5515ea3e0a221ffc5d4e75c971c217b1a4c"
+  integrity sha512-wHhmGJyVuijnYIJXZJHDUF2WM+rJYTjulUTqF9k61d3BTk8etydz+M4dXUVH7M76ZRS85rqBTCx0Es/lLsrjnA==
 
-eslint-plugin-react@^7.14.1:
-  version "7.14.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.14.1.tgz#0b49bed8c18b5c2819ea4eb4fdda93e236643198"
-  integrity sha512-fQSIHJ3t0tYgctUyPbcjDPgNUTM6jNFguFKi73ctNjq+8KgqSynMMltakn60/VTtvmNSxOtju/j8Yby8mNn3bQ==
+eslint-plugin-react@^7.14.2:
+  version "7.14.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.14.2.tgz#94c193cc77a899ac0ecbb2766fbef88685b7ecc1"
+  integrity sha512-jZdnKe3ip7FQOdjxks9XPN0pjUKZYq48OggNMd16Sk+8VXx6JOvXmlElxROCgp7tiUsTsze3jd78s/9AFJP2mA==
   dependencies:
     array-includes "^3.0.3"
     doctrine "^2.1.0"
