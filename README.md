@@ -1,5 +1,6 @@
 # @culturehq/add-to-calendar
 
+[![Build Status](https://github.com/CultureHQ/add-to-calendar/workflows/Push/badge.svg)](https://github.com/CultureHQ/add-to-calendar/actions)
 [![Package Version](https://img.shields.io/npm/v/@culturehq/add-to-calendar.svg)](https://www.npmjs.com/package/@culturehq/add-to-calendar)
 
 A small package for adding an event to a calendar.
