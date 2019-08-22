@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.3] - 2019-08-22
+
+### Added
+
+- Type definitions shipped along with the main bundle.
+
+### Changed
+
+- Switched over to TypeScript for development.
+
 ## [1.0.2] - 2019-06-13
 
 ### Changed
