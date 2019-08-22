@@ -1,11 +1,18 @@
-import React, { useState, useCallback } from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import AddToCalendar from "../src/AddToCalendar";
 import "../src/styles.css";
 
-const Field = ({ children, name, value, setValue }) => {
-  const onChange = useCallback(event => setValue(event.target.value), [setValue]);
+type FieldProps = {
+  children: string,
+  name: string,
+  value: string,
+  setValue: React.Dispatch<React.SetStateAction<string>>
+};
+
+const Field = ({ children, name, value, setValue }: FieldProps) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
 
   return (
     <label htmlFor={name}>
@@ -16,11 +23,11 @@ const Field = ({ children, name, value, setValue }) => {
 };
 
 const App = () => {
-  const [name, setName] = useState("Happy Hour");
-  const [details, setDetails] = useState("Let's go after work");
-  const [location, setLocation] = useState("Boston, MA");
-  const [startsAt, setStartsAt] = useState("2018-12-06T17:00:00-05:00");
-  const [endsAt, setEndsAt] = useState("2018-12-06T18:00:00-05:00");
+  const [name, setName] = React.useState("Happy Hour");
+  const [details, setDetails] = React.useState("Let's go after work");
+  const [location, setLocation] = React.useState("Boston, MA");
+  const [startsAt, setStartsAt] = React.useState("2018-12-06T17:00:00-05:00");
+  const [endsAt, setEndsAt] = React.useState("2018-12-06T18:00:00-05:00");
 
   return (
     <>

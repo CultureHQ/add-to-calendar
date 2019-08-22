@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
 import AddToCalendar from "../AddToCalendar";
@@ -11,7 +11,9 @@ const mockEvent = {
   endsAt: "2018-12-06T18:00:00-05:00"
 };
 
-const getDropped = container => container.querySelector(".chq-atc--dropdown");
+const getDropped = (container: HTMLElement) => (
+  container.querySelector(".chq-atc--dropdown")
+);
 
 test("allows initial open to be set", () => {
   const { container } = render(<AddToCalendar event={mockEvent} open />);
