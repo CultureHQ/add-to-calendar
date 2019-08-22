@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "declaration": true,
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",

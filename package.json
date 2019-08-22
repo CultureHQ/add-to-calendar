@@ -8,7 +8,7 @@
     "build": "tsc",
     "docs": "webpack --mode production",
     "lint": "chq-scripts lint --ext .js,.ts,.tsx",
-    "prepublishOnly": "rm -f dist/* && yarn build && cp src/styles.css dist",
+    "prepublishOnly": "rm -f dist/* && yarn build --declaration && cp src/styles.css dist",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },
