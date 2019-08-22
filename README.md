@@ -7,7 +7,7 @@ A small package for adding an event to a calendar.
 
 ## Getting started
 
-First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, then install using either `npm install` or `yarn install`. Then, get your API key from tenor. Finally, you can add the selector component by adding:
+First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, then install using either `npm install` or `yarn install`. Next, you can add the component through:
 
 ```javascript
 <AddToCalendar
