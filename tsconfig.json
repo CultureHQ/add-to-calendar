@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": false,
-    "strictNullChecks": true,
-    "module": "es6",
+    "allowJs": false,
+    "declaration": true,
+    "jsx": "react",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "jsx": "react",
-    "target": "es5",
-    "allowJs": false
+    "outDir": "dist",
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "target": "es5"
   },
-  "include": [
-    "./src/",
-    "./docs/app.tsx"
-  ]
+  "include": ["src"],
+  "exclude": ["**/__tests__/*"]
 }

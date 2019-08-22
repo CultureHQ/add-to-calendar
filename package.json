@@ -3,10 +3,12 @@
   "version": "1.0.2",
   "description": "A small package for adding an event to a calendar.",
   "main": "dist/AddToCalendar.js",
+  "types": "dist/AddToCalendar.d.ts",
   "scripts": {
+    "build": "tsc",
     "docs": "webpack --mode production",
     "lint": "chq-scripts lint --ext .js,.ts,.tsx",
-    "prepublishOnly": "rm -f dist/* && babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
+    "prepublishOnly": "rm -f dist/* && yarn build && cp src/styles.css dist",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },
@@ -30,6 +32,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@babel/register": "^7.5.5",
     "@culturehq/scripts": "^3.0.1",
     "@testing-library/react": "^9.1.0",
     "@types/jest": "^24.0.18",
