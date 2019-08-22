@@ -2,33 +2,35 @@ import * as React from "react";
 
 import makeUrls, { CalendarEvent, CalendarURLs } from "./makeUrls";
 
-type AutoFocusRef = React.RefObject<HTMLElement>;
-
-const useAutoFocus = () : AutoFocusRef => {
-  const ref: AutoFocusRef = React.useRef(null);
+const useAutoFocus = () => {
+  const elementRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(
     () => {
-      const button = document.activeElement;
-      const node = ref.current;
+      const previous = document.activeElement;
+      const element = elementRef.current;
 
-      if (node) {
-        node.focus();
+      if (element) {
+        element.focus();
       }
 
-      return (button instanceof HTMLElement) ? () => button.focus() : undefined;
+      if (previous instanceof HTMLElement) {
+        return () => previous.focus();
+      }
+
+      return undefined;
     },
     []
   );
 
-  return ref;
+  return elementRef;
 };
 
 type OpenStateToggle = (event?: React.MouseEvent) => void;
 
 const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
-  const [open, setOpen] = React.useState(initialOpen);
-  const onToggle: OpenStateToggle = () => setOpen(current => !current);
+  const [open, setOpen] = React.useState<boolean>(initialOpen);
+  const onToggle = () => setOpen(current => !current);
 
   React.useEffect(
     () => {
@@ -47,16 +49,18 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
   return [open, onToggle];
 };
 
-type CalendarRef = HTMLElement;
-type CalendarProps = { children: React.ReactNode, download?: boolean, href: string };
+type CalendarRef = HTMLAnchorElement;
+type CalendarProps = {
+  children: React.ReactNode,
+  download?: boolean,
+  href: string
+};
 
-const Calendar = React.forwardRef<CalendarRef, CalendarProps>(
-  ({ children, download = false, href }, ref: React.RefObject<HTMLAnchorElement>) => (
-    <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
-  )
-);
+const Calendar = React.forwardRef<CalendarRef, CalendarProps>(({ children, download = false, href }, ref) => (
+  <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
+    {children}
+  </a>
+));
 
 type DropdownProps = {
   onToggle: OpenStateToggle,
@@ -64,7 +68,7 @@ type DropdownProps = {
 };
 
 const Dropdown = ({ onToggle, urls }: DropdownProps) => {
-  const ref = useAutoFocus();
+  const ref = useAutoFocus() as React.RefObject<HTMLAnchorElement>;
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {
       onToggle();
@@ -92,15 +96,15 @@ const Dropdown = ({ onToggle, urls }: DropdownProps) => {
   );
 };
 
-type AddToCalendarProps = {
-  children?: string,
-  event: CalendarEvent,
-  open?: boolean
-};
+interface AddToCalendarProps {
+  children?: string;
+  event: CalendarEvent;
+  open?: boolean;
+}
 
 const AddToCalendar = ({ children = "Add to My Calendar", event, open: initialOpen = false }: AddToCalendarProps) => {
   const [open, onToggle] = useOpenState(initialOpen);
-  const urls = React.useMemo(() => makeUrls(event), [event]);
+  const urls = React.useMemo<CalendarURLs>(() => makeUrls(event), [event]);
 
   return (
     <div className="chq-atc">

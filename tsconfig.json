@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": false,
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "dist",
     "sourceMap": false,
-    "strictNullChecks": true,
+    "strict": true,
     "target": "es5"
   },
   "include": ["src"],

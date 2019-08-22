@@ -1,10 +1,10 @@
-export type CalendarEvent = {
-  name: string,
-  details: string | null,
-  location: string | null,
-  startsAt: string,
-  endsAt: string
-};
+export interface CalendarEvent {
+  name: string;
+  details: string | null;
+  location: string | null;
+  startsAt: string;
+  endsAt: string;
+}
 
 const makeDuration = (event: CalendarEvent) => {
   const minutes = Math.floor((+new Date(event.endsAt) - +new Date(event.startsAt)) / 60 / 1000);
@@ -76,12 +76,12 @@ const makeICSCalendarUrl = (event: CalendarEvent) => {
   return encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
 };
 
-export type CalendarURLs = {
-  google: string,
-  outlook: string,
-  yahoo: string,
-  ics: string
-};
+export interface CalendarURLs {
+  google: string;
+  outlook: string;
+  yahoo: string;
+  ics: string;
+}
 
 const makeUrls = (event: CalendarEvent): CalendarURLs => ({
   google: makeGoogleCalendarUrl(event),
