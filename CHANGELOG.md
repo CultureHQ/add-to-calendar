@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.4] - 2019-08-22
+
+### Changed
+
+- Switched the type definition for the `children` prop on the `AddToCalendar` component from `string` to `React.ReactNode` so it's more open.
+
 ## [1.0.3] - 2019-08-22
 
 ### Added
@@ -53,7 +59,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial release 🎉
 
-[unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.2...HEAD
+[unreleased]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/CultureHQ/add-to-calendar/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/CultureHQ/add-to-calendar/compare/v0.2.0...v1.0.0

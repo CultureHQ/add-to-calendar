@@ -97,7 +97,7 @@ const Dropdown = ({ onToggle, urls }: DropdownProps) => {
 };
 
 interface AddToCalendarProps {
-  children?: string;
+  children?: React.ReactNode;
   event: CalendarEvent;
   open?: boolean;
 }
