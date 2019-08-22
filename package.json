@@ -5,7 +5,7 @@
   "main": "dist/AddToCalendar.js",
   "scripts": {
     "docs": "webpack --mode production",
-    "lint": "chq-scripts lint",
+    "lint": "chq-scripts lint --ext .js,.ts,.tsx",
     "prepublishOnly": "rm -f dist/* && babel src --out-dir ./dist --ignore '**/__tests__' && cp src/styles.css dist",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
@@ -35,6 +35,8 @@
     "@types/jest": "^24.0.18",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.1.0",
@@ -49,6 +51,16 @@
   "resolutions": {
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@culturehq",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ]
   },
   "jest": {
     "testRegex": "\\.test\\.(j|t)sx?$"
