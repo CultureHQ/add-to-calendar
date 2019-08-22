@@ -5,10 +5,13 @@ module.exports = {
     path: path.join(__dirname, "docs"),
     filename: "index.js"
   },
-  entry: path.join(__dirname, "docs", "app.js"),
+  entry: path.join(__dirname, "docs", "app.tsx"),
+  resolve: {
+    extensions: [".js", ".ts", ".tsx"]
+  },
   module: {
     rules: [
-      { test: /\.js$/, use: "babel-loader", exclude: /node_modules/ },
+      { test: /\.tsx?$/, use: "awesome-typescript-loader" },
       {
         test: /\.css$/,
         use: [{ loader: "style-loader" }, { loader: "css-loader" }],
