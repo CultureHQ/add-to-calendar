@@ -11,6 +11,7 @@
     "allowJs": false
   },
   "include": [
-    "./src/"
+    "./src/",
+    "./docs/app.tsx"
   ]
 }
