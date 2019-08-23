@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+### Changed
+
+- Instead of explicitly defining the type of what `makeUrls` returns, use the `ReturnType` type.
+
 ## [1.0.4] - 2019-08-22
 
 ### Changed

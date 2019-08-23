@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import makeUrls, { CalendarEvent, CalendarURLs } from "./makeUrls";
+import makeUrls, { CalendarEvent } from "./makeUrls";
+
+type CalendarURLs = ReturnType<typeof makeUrls>;
 
 const useAutoFocus = () => {
   const elementRef = React.useRef<HTMLElement>(null);

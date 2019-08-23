@@ -76,14 +76,7 @@ const makeICSCalendarUrl = (event: CalendarEvent) => {
   return encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
 };
 
-export interface CalendarURLs {
-  google: string;
-  outlook: string;
-  yahoo: string;
-  ics: string;
-}
-
-const makeUrls = (event: CalendarEvent): CalendarURLs => ({
+const makeUrls = (event: CalendarEvent) => ({
   google: makeGoogleCalendarUrl(event),
   outlook: makeOutlookCalendarUrl(event),
   yahoo: makeYahooCalendarUrl(event),
