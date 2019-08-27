@@ -53,20 +53,22 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
 
 type CalendarRef = HTMLAnchorElement;
 type CalendarProps = {
-  children: React.ReactNode,
-  download?: boolean,
-  href: string
+  children: React.ReactNode;
+  download?: boolean;
+  href: string;
 };
 
-const Calendar = React.forwardRef<CalendarRef, CalendarProps>(({ children, download = false, href }, ref) => (
-  <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
-    {children}
-  </a>
-));
+const Calendar = React.forwardRef<CalendarRef, CalendarProps>(
+  ({ children, download = false, href }, ref) => (
+    <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  )
+);
 
 type DropdownProps = {
-  onToggle: OpenStateToggle,
-  urls: CalendarURLs
+  onToggle: OpenStateToggle;
+  urls: CalendarURLs;
 };
 
 const Dropdown = ({ onToggle, urls }: DropdownProps) => {

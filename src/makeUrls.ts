@@ -55,7 +55,7 @@ const makeYahooCalendarUrl = (event: CalendarEvent) => makeUrl("https://calendar
   st: makeTime(event.startsAt),
   dur: makeDuration(event),
   desc: event.details,
-  in_loc: event.location
+  in_loc: event.location // eslint-disable-line @typescript-eslint/camelcase
 });
 
 const makeICSCalendarUrl = (event: CalendarEvent) => {
