@@ -3,8 +3,8 @@ pull_request_rules:
     conditions:
       - base=master
       - label=dependencies
-      - status-success=Lint
       - status-success=Test
+      - status-success=Lint
     actions:
       merge:
         strict: true
