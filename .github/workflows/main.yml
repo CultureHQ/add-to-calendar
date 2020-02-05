@@ -1,7 +1,8 @@
 name: Main
 on: push
 jobs:
-  build:
+  ci:
+    name: CI
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
