@@ -864,10 +864,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@culturehq/eslint-config@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@culturehq/eslint-config/-/eslint-config-5.1.1.tgz#58915b1005ea400f48e616f70ce251e508389140"
-  integrity sha512-Wl1Mu3XCt0Y6Bsgja5x4edRNknCu53wjSqYoYv4cFHvsIGplzZCqqSXR5JtgIIPLYp+388V5La5Tt758FfCCRw==
+"@culturehq/eslint-config@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@culturehq/eslint-config/-/eslint-config-5.1.2.tgz#ca4d8d8d4d8cd87b380ad7f06e729873662a2e30"
+  integrity sha512-7EHF7ve+bGAU0YOXrtuF+EojvS4Emq7xyHpLCF4NywuW6d07OCVZP+V02gYanCWrlh7LTI0NP3SRldoXHdoUcQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.0.0"
     "@typescript-eslint/parser" "^2.12.0"
@@ -881,12 +881,12 @@
     eslint-plugin-react-hooks "^2.0.1"
 
 "@culturehq/scripts@^5.1.2":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-5.1.3.tgz#5381d7d604a000939b0a6b799734570cb98bfd04"
-  integrity sha512-lfBrwcy/lDt6sg3xRMJ99ICJSG+oT3wtCGmCEGYNHf0nLRNVivqJpSWNgFsplAKW7dIDtyPvGlgMLh62KOBOGw==
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@culturehq/scripts/-/scripts-5.1.4.tgz#7744627d75a24169a244490513c31ae007eac01a"
+  integrity sha512-xRm2Sfg+KcHtakltxLIH//f/m9aBMchlc8kYHOnYtqcUXtFZIUD8rD8bNYXHZpJCxVQLvHop8Pb2f7XHCm18UQ==
   dependencies:
     "@babel/core" "^7.8.3"
-    "@culturehq/eslint-config" "^5.1.1"
+    "@culturehq/eslint-config" "^5.1.2"
     babel-jest "^25.1.0"
     eslint "^6.8.0"
     jest "^25.1.0"
