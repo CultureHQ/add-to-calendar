@@ -71,7 +71,7 @@ type DropdownProps = {
   urls: CalendarURLs;
 };
 
-const Dropdown = ({ onToggle, urls }: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> = ({ onToggle, urls }) => {
   const ref = useAutoFocus() as React.RefObject<HTMLAnchorElement>;
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {
@@ -100,13 +100,12 @@ const Dropdown = ({ onToggle, urls }: DropdownProps) => {
   );
 };
 
-interface AddToCalendarProps {
-  children?: React.ReactNode;
+type AddToCalendarProps = {
   event: CalendarEvent;
   open?: boolean;
-}
+};
 
-const AddToCalendar = ({ children = "Add to My Calendar", event, open: initialOpen = false }: AddToCalendarProps) => {
+const AddToCalendar: React.FC<AddToCalendarProps> = ({ children = "Add to My Calendar", event, open: initialOpen = false }) => {
   const [open, onToggle] = useOpenState(initialOpen);
   const urls = React.useMemo<CalendarURLs>(() => makeUrls(event), [event]);
 

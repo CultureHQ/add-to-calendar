@@ -55,7 +55,7 @@ const makeYahooCalendarUrl = (event: CalendarEvent) => makeUrl("https://calendar
   st: makeTime(event.startsAt),
   dur: makeDuration(event),
   desc: event.details,
-  in_loc: event.location // eslint-disable-line @typescript-eslint/camelcase
+  in_loc: event.location
 });
 
 const makeICSCalendarUrl = (event: CalendarEvent) => {
@@ -76,7 +76,9 @@ const makeICSCalendarUrl = (event: CalendarEvent) => {
   return encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
 };
 
-const makeUrls = (event: CalendarEvent) => ({
+type URLSet = { [key: string]: string };
+
+const makeUrls = (event: CalendarEvent): URLSet => ({
   google: makeGoogleCalendarUrl(event),
   outlook: makeOutlookCalendarUrl(event),
   yahoo: makeYahooCalendarUrl(event),
