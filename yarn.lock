@@ -671,10 +671,10 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-jsx" "^7.8.3"
 
-"@babel/plugin-transform-react-jsx-source@^7.9.0":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-source/-/plugin-transform-react-jsx-source-7.9.0.tgz#89ef93025240dd5d17d3122294a093e5e0183de0"
-  integrity sha512-K6m3LlSnTSfRkM6FcRk8saNEeaeyG5k7AVkBU2bZK3+1zdkSED3qNdsWrUgQBeTVD2Tp3VMmerxVO2yM5iITmw==
+"@babel/plugin-transform-react-jsx-source@^7.10.0":
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-source/-/plugin-transform-react-jsx-source-7.10.0.tgz#0e24978505130a79bb8ee1af15a1a7d8e783347d"
+  integrity sha512-EmUZ2YYXK6YFIdSxUJ1thg7gIBMHSEp8nGS6GwkXGpGdplpmOhj6azYjszT8YcFt6HyPElycDOd2lXckzN+OEw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-jsx" "^7.8.3"
@@ -688,6 +688,14 @@
     "@babel/helper-builder-react-jsx-experimental" "^7.9.0"
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-jsx" "^7.8.3"
+
+"@babel/plugin-transform-react-pure-annotations@^7.10.0":
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-pure-annotations/-/plugin-transform-react-pure-annotations-7.10.0.tgz#b3794b3c28e6289f104a6fc49ddf6e71401a84cf"
+  integrity sha512-rn8QOUd0wnJYKGROZ9GYIPBbl/c3aC2tuMh1dmkklrL0l3D5MzXmQBlrsWTizbFnJC16TkEHwSs+a0rEO/hvcQ==
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-transform-regenerator@^7.8.7":
   version "7.8.7"
@@ -835,16 +843,17 @@
     esutils "^2.0.2"
 
 "@babel/preset-react@^7.7.0":
-  version "7.9.4"
-  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.9.4.tgz#c6c97693ac65b6b9c0b4f25b948a8f665463014d"
-  integrity sha512-AxylVB3FXeOTQXNXyiuAQJSvss62FEotbX2Pzx3K/7c+MKJMdSg6Ose6QYllkdCFA8EInCJVw7M/o5QbLuA4ZQ==
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.10.0.tgz#aa737c937d982037744c73180353c5c639b9ca2f"
+  integrity sha512-3bHAfSRGTciFb1c7qlPCeGiL1TErUANc5AmjXE5+9/l6ePyLoCvHPxqdk94PUGwTn6/VOZSDDWtkC1cYsaUUkA==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-transform-react-display-name" "^7.8.3"
     "@babel/plugin-transform-react-jsx" "^7.9.4"
     "@babel/plugin-transform-react-jsx-development" "^7.9.0"
     "@babel/plugin-transform-react-jsx-self" "^7.9.0"
-    "@babel/plugin-transform-react-jsx-source" "^7.9.0"
+    "@babel/plugin-transform-react-jsx-source" "^7.10.0"
+    "@babel/plugin-transform-react-pure-annotations" "^7.10.0"
 
 "@babel/preset-typescript@^7.8.3":
   version "7.9.0"
@@ -1301,7 +1310,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/react-dom@*", "@types/react-dom@^16.9.0":
+"@types/react-dom@^16.9.0":
   version "16.9.8"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.8.tgz#fe4c1e11dfc67155733dfa6aa65108b4971cb423"
   integrity sha512-ykkPQ+5nFknnlU6lDd947WbQ6TE3NNzbQAkInC2EKY1qeYdTKp7onFusmYZb+ityzx2YviqT6BXSu+LyWWJwcA==
@@ -1320,13 +1329,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
-
-"@types/testing-library__dom@*":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__dom/-/testing-library__dom-7.0.2.tgz#2906f8a0dce58b0746c6ab606f786bd06fe6940e"
-  integrity sha512-8yu1gSwUEAwzg2OlPNbGq+ixhmSviGurBu1+ivxRKq1eRcwdjkmlwtPvr9VhuxTq2fNHBWN2po6Iem3Xt5A6rg==
-  dependencies:
-    pretty-format "^25.1.0"
 
 "@types/testing-library__react@^10.0.1":
   version "10.0.1"
@@ -6290,7 +6292,7 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-pretty-format@^25.1.0, pretty-format@^25.2.1, pretty-format@^25.5.0:
+pretty-format@^25.2.1, pretty-format@^25.5.0:
   version "25.5.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-25.5.0.tgz#7873c1d774f682c34b8d48b6743a2bf2ac55791a"
   integrity sha512-kbo/kq2LQ/A/is0PQwsEHM7Ca6//bGPPvU6UnsdDRSKTWxT/ru/xb88v4BJf6a69H+uTytOEsTusT9ksd/1iWQ==
