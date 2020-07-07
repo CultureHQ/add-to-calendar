@@ -44,7 +44,7 @@ Defaults to `false`. Whether or not the dropdown should start open. (Will be ign
 
 ### `filename`
 
-Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"default"`. 
+Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"download"`. 
 
 ## Testing locally
 
