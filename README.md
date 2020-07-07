@@ -18,6 +18,7 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
     startsAt: "2018-12-06T17:00:00-05:00",
     endsAt: "2018-12-06T18:00:00-05:00"
   }}
+  filename="Happy Hour Invitation"
 />
 ```
 
@@ -40,6 +41,10 @@ Should be an object representing the event to be added to the various calendars.
 ### `open`
 
 Defaults to `false`. Whether or not the dropdown should start open. (Will be ignored after initial render.)
+
+### `filename`
+
+Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"default"`. 
 
 ## Testing locally
 
