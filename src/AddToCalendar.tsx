@@ -54,13 +54,13 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
 type CalendarRef = HTMLAnchorElement;
 type CalendarProps = {
   children: React.ReactNode;
-  download?: boolean;
+  filename?: string;
   href: string;
 };
 
 const Calendar = React.forwardRef<CalendarRef, CalendarProps>(
-  ({ children, download = false, href }, ref) => (
-    <a ref={ref} download={download} href={href} target="_blank" rel="noopener noreferrer">
+  ({ children, filename, href }, ref) => (
+    <a ref={ref} download={Boolean(filename) ? filename : false} href={href} target="_blank" rel="noopener noreferrer">
       {children}
     </a>
   )
@@ -69,9 +69,10 @@ const Calendar = React.forwardRef<CalendarRef, CalendarProps>(
 type DropdownProps = {
   onToggle: OpenStateToggle;
   urls: CalendarURLs;
+  filename?: string;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ onToggle, urls }) => {
+const Dropdown: React.FC<DropdownProps> = ({ onToggle, urls, filename = 'download' }) => {
   const ref = useAutoFocus() as React.RefObject<HTMLAnchorElement>;
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {
@@ -81,13 +82,13 @@ const Dropdown: React.FC<DropdownProps> = ({ onToggle, urls }) => {
 
   return (
     <div className="chq-atc--dropdown" onKeyDown={onKeyDown} role="presentation">
-      <Calendar href={urls.ics} download ref={ref}>
+      <Calendar href={urls.ics} filename={filename} ref={ref}>
         Apple Calendar
       </Calendar>
       <Calendar href={urls.google}>
         Google
       </Calendar>
-      <Calendar href={urls.ics} download>
+      <Calendar href={urls.ics} filename={filename}>
         Outlook
       </Calendar>
       <Calendar href={urls.outlook}>
@@ -103,9 +104,10 @@ const Dropdown: React.FC<DropdownProps> = ({ onToggle, urls }) => {
 type AddToCalendarProps = {
   event: CalendarEvent;
   open?: boolean;
+  filename?: string;
 };
 
-const AddToCalendar: React.FC<AddToCalendarProps> = ({ children = "Add to My Calendar", event, open: initialOpen = false }) => {
+const AddToCalendar: React.FC<AddToCalendarProps> = ({ children = "Add to My Calendar", event, filename, open: initialOpen = false }) => {
   const [open, onToggle] = useOpenState(initialOpen);
   const urls = React.useMemo<CalendarURLs>(() => makeUrls(event), [event]);
 
@@ -120,7 +122,7 @@ const AddToCalendar: React.FC<AddToCalendarProps> = ({ children = "Add to My Cal
           {children}
         </button>
       )}
-      {open && <Dropdown onToggle={onToggle} urls={urls} />}
+      {open && <Dropdown onToggle={onToggle} urls={urls} filename={filename} />}
     </div>
   );
 };
