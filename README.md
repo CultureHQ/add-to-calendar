@@ -18,7 +18,6 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
     startsAt: "2018-12-06T17:00:00-05:00",
     endsAt: "2018-12-06T18:00:00-05:00"
   }}
-  filename="Happy Hour Invitation"
 />
 ```
 
@@ -46,7 +45,7 @@ Defaults to `false`. Whether or not the dropdown should start open. (Will be ign
 
 Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"download"`. 
 
-## Testing locally
+## Development
 
 You can run the tests by running `yarn test` and lint by running `yarn lint`. You can run the local server by running `yarn start` which will start the docs server on `http://localhost:8080`.
 
