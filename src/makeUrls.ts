@@ -37,8 +37,8 @@ const makeGoogleCalendarUrl = (event: CalendarEvent) => makeUrl("https://calenda
 
 const makeOutlookCalendarUrl = (event: CalendarEvent) => makeUrl("https://outlook.live.com/owa", {
   rru: "addevent",
-  startdt: makeTime(event.startsAt),
-  enddt: makeTime(event.endsAt),
+  startdt: new Date(event.startsAt).toISOString(),
+  enddt: new Date(event.endsAt).toISOString(),
   subject: event.name,
   location: event.location,
   body: event.details,

@@ -57,13 +57,15 @@ test("makes expected links", () => {
 
   const name = encodeURIComponent(mockEvent.name);
   const startTime = "20181206T220000Z";
+  const startTimeOutlook = "2018-12-06T22%3A00%3A00.000Z";
+
+  const [,, google, yahoo, outlook] = hrefs;
 
   hrefs.forEach(href => {
     expect(href).toContain(name);
-    expect(href).toContain(startTime);
+    const expectedStartTime = href === outlook ? startTimeOutlook : startTime;
+    expect(href).toContain(expectedStartTime);
   });
-
-  const [,, google, yahoo, outlook] = hrefs;
 
   expect(google).toContain("https://calendar.google.com");
 
