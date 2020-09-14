@@ -8,7 +8,7 @@ export interface CalendarEvent {
 
 const makeDuration = (event: CalendarEvent) => {
   const minutes = Math.floor((+new Date(event.endsAt) - +new Date(event.startsAt)) / 60 / 1000);
-  return `${Math.floor(minutes / 60)}:${`0${minutes % 60}`.slice(-2)}`;
+  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}${`0${minutes % 60}`.slice(-2)}`;
 };
 
 const makeTime = (time: string) => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, "");
