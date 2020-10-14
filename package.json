@@ -40,7 +40,7 @@
     "@types/react-dom": "^16.9.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
-    "css-loader": "^4.0.0",
+    "css-loader": "^5.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "style-loader": "^2.0.0",
