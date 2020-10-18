@@ -1,6 +1,6 @@
 {
   "name": "@culturehq/add-to-calendar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A small package for adding an event to a calendar.",
   "main": "dist/AddToCalendar.js",
   "types": "dist/AddToCalendar.d.ts",

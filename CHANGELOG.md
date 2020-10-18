@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.1] - 2020-10-18
+
 ### Changed
 
 - Ensure we can render the component on a server.
@@ -73,7 +75,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial release 🎉
 
-[unreleased]: https://github.com/culturehq/add-to-calendar/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/culturehq/add-to-calendar/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/culturehq/add-to-calendar/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/culturehq/add-to-calendar/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/culturehq/add-to-calendar/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/culturehq/add-to-calendar/compare/v1.0.2...v1.0.3
