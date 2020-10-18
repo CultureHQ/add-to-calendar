@@ -4,6 +4,7 @@
 const React = require("react");
 const ReactDOM = require("react-dom/server");
 
+// eslint-disable-next-line import/no-unresolved
 const { default: AddToCalendar } = require("./dist/AddToCalendar");
 
 ReactDOM.renderToString(React.createElement(AddToCalendar, {
