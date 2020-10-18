@@ -9,6 +9,7 @@
     "docs": "webpack --mode production",
     "lint": "chq-scripts lint",
     "prepublishOnly": "rm -f dist/* && yarn tsc --declaration && cp src/styles.css dist",
+    "ssr": "yarn node ssr",
     "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },

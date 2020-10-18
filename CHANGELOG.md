@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+### Changed
+
+- Ensure we can render the component on a server.
+
 ## [1.1.0] - 2020-07-10
 
 ### Added

@@ -62,8 +62,15 @@ const makeICSCalendarUrl = (event: CalendarEvent) => {
   const components = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "BEGIN:VEVENT",
-    `URL:${document.URL}`,
+    "BEGIN:VEVENT"
+  ];
+
+  // In case of SSR, document won't be defined
+  if (typeof document !== "undefined") {
+    components.push(`URL:${document.URL}`);
+  }
+
+  components.push(
     `DTSTART:${makeTime(event.startsAt)}`,
     `DTEND:${makeTime(event.endsAt)}`,
     `SUMMARY:${event.name}`,
@@ -71,7 +78,7 @@ const makeICSCalendarUrl = (event: CalendarEvent) => {
     `LOCATION:${event.location}`,
     "END:VEVENT",
     "END:VCALENDAR"
-  ];
+  );
 
   return encodeURI(`data:text/calendar;charset=utf8,${components.join("\n")}`);
 };
