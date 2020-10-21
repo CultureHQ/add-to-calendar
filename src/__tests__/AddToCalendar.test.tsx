@@ -68,7 +68,7 @@ test("makes expected links", () => {
   expect(google).toContain("https://calendar.google.com");
 
   expect(yahoo).toContain("https://calendar.yahoo.com");
-  expect(yahoo).toContain(encodeURIComponent("1:00"));
+  expect(yahoo).toContain(encodeURIComponent("0100"));
 
   expect(outlook).toContain("https://outlook.live.com");
 });
