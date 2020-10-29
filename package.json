@@ -1,6 +1,6 @@
 {
   "name": "@culturehq/add-to-calendar",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A small package for adding an event to a calendar.",
   "main": "dist/AddToCalendar.js",
   "types": "dist/AddToCalendar.d.ts",
@@ -9,8 +9,8 @@
     "docs": "webpack --mode production",
     "lint": "chq-scripts lint",
     "prepublishOnly": "rm -f dist/* && yarn tsc --declaration && cp src/styles.css dist",
+    "serve": "webpack serve --mode development --hot",
     "ssr": "yarn node ssr",
-    "start": "webpack-dev-server --mode development --hot",
     "test": "chq-scripts test"
   },
   "repository": {

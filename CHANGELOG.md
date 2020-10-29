@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.2] - 2020-10-29
+
+### Changed
+
+- Fixed up datetime settings for outlook web.
+
 ## [1.1.1] - 2020-10-18
 
 ### Changed
