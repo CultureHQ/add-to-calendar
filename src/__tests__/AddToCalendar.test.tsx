@@ -57,7 +57,7 @@ test("makes expected links", () => {
 
   const name = encodeURIComponent(mockEvent.name);
   const startTime = "20181206T220000Z";
-  const startTimeOutlook = "2018-12-06T22%3A00%3A00.000Z";
+  const startTimeOutlook = "2018-12-06T17%3A00%3A00-05%3A00";
 
   const [,, google, yahoo, outlook] = hrefs;
 
