@@ -74,3 +74,13 @@ test("makes expected links", () => {
 
   expect(outlook).toContain("https://outlook.live.com");
 });
+
+test("allows click to be overriden by props", () => {
+  const { container, getByText } = render(
+    <div>
+      <AddToCalendar event={mockEvent} handleClick={(e)=> e.preventDefault() }/>
+    </div>
+  );
+  fireEvent.click(getByText("Add to My Calendar"));
+  expect(getDropped(container)).toBeFalsy();
+});
