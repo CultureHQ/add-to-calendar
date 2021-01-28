@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, fireEvent, findAllByTestId } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 import AddToCalendar from "../AddToCalendar";
 
