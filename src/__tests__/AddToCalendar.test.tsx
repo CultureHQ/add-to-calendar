@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, findAllByTestId } from "@testing-library/react";
 
 import AddToCalendar from "../AddToCalendar";
 
@@ -14,6 +14,10 @@ const mockEvent = {
 const getDropped = (container: HTMLElement) => (
   container.querySelector(".chq-atc--dropdown")
 );
+
+const getSvg = (container: HTMLElement) => {
+  container.querySelector("svg")
+}
 
 test("allows initial open to be set", () => {
   const { container } = render(<AddToCalendar event={mockEvent} open />);
@@ -83,4 +87,13 @@ test("allows click to be overriden by props", () => {
   );
   fireEvent.click(getByText("Add to My Calendar"));
   expect(getDropped(container)).toBeFalsy();
+});
+
+test("allows to hide the icon", () => {
+  const { container } = render(
+    <div>
+      <AddToCalendar event={mockEvent} showIcon={false}/>
+    </div>
+  );
+  expect(getSvg(container)).toBeFalsy();
 });
