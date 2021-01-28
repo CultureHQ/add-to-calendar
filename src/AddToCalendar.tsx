@@ -120,7 +120,7 @@ const AddToCalendar: React.FC<AddToCalendarProps> = ({
   const [open, onToggle] = useOpenState(initialOpen);
   const urls = useMemo<CalendarURLs>(() => makeUrls(event), [event]);
 
-  const btnClick = (e: MouseEvent<HTMLElement>) => {
+  const btnClick = (e: React.MouseEvent<HTMLElement>) => {
     if (handleClick){
       handleClick(e, onToggle);
     } else {
