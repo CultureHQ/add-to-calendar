@@ -4,6 +4,7 @@ export interface CalendarEvent {
   location: string | null;
   startsAt: string;
   endsAt: string;
+  addresses?: string[]
 }
 
 const makeDuration = (event: CalendarEvent) => {
@@ -13,26 +14,34 @@ const makeDuration = (event: CalendarEvent) => {
 
 const makeTime = (time: string) => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, "");
 
-type Query = { [key: string]: null | boolean | number | string };
+type Query = { [key: string]: null | boolean | number | string | string[] | undefined };
 
 const makeUrl = (base: string, query: Query) => Object.keys(query).reduce(
   (accum, key, index) => {
     const value = query[key];
 
-    if (value !== null) {
-      return `${accum}${index === 0 ? "?" : "&"}${key}=${encodeURIComponent(value)}`;
+    if (value === null || value === undefined) {
+      return accum;
     }
-    return accum;
+
+    // if array then flatten down to csv
+    const stringValue = Array.isArray(value) ? value.join(","): value;
+
+    return `${accum}${index === 0 ? "?" : "&"}${key}=${encodeURIComponent(stringValue)}`;
   },
   base
 );
 
+// some unoffical references for URL format:
+// https://stackoverflow.com/questions/22757908/what-parameters-are-required-to-create-an-add-to-google-calendar-link
+// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/master/services/google.md
 const makeGoogleCalendarUrl = (event: CalendarEvent) => makeUrl("https://calendar.google.com/calendar/render", {
   action: "TEMPLATE",
   dates: `${makeTime(event.startsAt)}/${makeTime(event.endsAt)}`,
   location: event.location,
   text: event.name,
-  details: event.details
+  details: event.details,
+  add: event.addresses
 });
 
 const makeOutlookCalendarUrl = (event: CalendarEvent) => makeUrl("https://outlook.live.com/owa", {
