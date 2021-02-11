@@ -12,7 +12,7 @@
     "serve": "webpack serve --mode development --hot",
     "ssr": "yarn node ssr",
     "test": "chq-scripts test"
-  },vi /
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CultureHQ/add-to-calendar.git"
