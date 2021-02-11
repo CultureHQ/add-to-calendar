@@ -37,13 +37,17 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
   useEffect(
     () => {
       if (open) {
-        const onClose = () => setOpen(false);
+        const onClose = () => {
+            setTimeout(() => {
+                setOpen(false);
+            }, 50);
+        }
         // use "mousedown" otherwise "click" is the same as "mouseup" and gets called immediately and closes the dialog
-        document.addEventListener("mousedown", onClose);
+          // but click is better semantically : https://stackoverflow.com/questions/14805225/whats-the-difference-between-mouseup-and-click-events/14805233
+        document.addEventListener("mouseup", onClose);
 
-        return () => document.removeEventListener("mousedown", onClose);
+        return () => document.removeEventListener("mouseup", onClose);
       }
-
       return undefined;
     },
     [open, setOpen]
@@ -61,7 +65,7 @@ type CalendarProps = {
 
 const Calendar = React.forwardRef<CalendarRef, CalendarProps>(
   ({ children, filename = false, href }, ref) => (
-    <a ref={ref} download={filename} href={href} target="_blank" rel="noopener noreferrer">
+    <a ref={ref} download={filename} href="#" rel="noopener noreferrer" onClick={()=> window.open(href, "_blank")}>
       {children}
     </a>
   )
@@ -83,17 +87,17 @@ const Dropdown: React.FC<DropdownProps> = ({ filename, onToggle, urls }) => {
 
   return (
     <div className="chq-atc--dropdown" onKeyDown={onKeyDown} role="presentation">
-      <Calendar href={urls.ics} filename={filename} ref={ref}>
-        Apple Calendar
-      </Calendar>
       <Calendar href={urls.google}>
         Google
+      </Calendar>
+      <Calendar href={urls.outlook}>
+        Outlook Web App
       </Calendar>
       <Calendar href={urls.ics} filename={filename}>
         Outlook
       </Calendar>
-      <Calendar href={urls.outlook}>
-        Outlook Web App
+      <Calendar href={urls.ics} filename={filename} ref={ref}>
+        Apple
       </Calendar>
       <Calendar href={urls.yahoo}>
         Yahoo
