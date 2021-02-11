@@ -38,9 +38,10 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
     () => {
       if (open) {
         const onClose = () => setOpen(false);
-        document.addEventListener("click", onClose);
+        // use "mousedown" otherwise "click" is the same as "mouseup" and gets called immediately and closes the dialog
+        document.addEventListener("mousedown", onClose);
 
-        return () => document.removeEventListener("click", onClose);
+        return () => document.removeEventListener("mousedown", onClose);
       }
 
       return undefined;
