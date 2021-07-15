@@ -104,25 +104,36 @@ const Dropdown: React.FC<DropdownProps> = ({ filename, onToggle, urls }) => {
 type AddToCalendarProps = {
   event: CalendarEvent;
   open?: boolean;
+  showIcon?: boolean;
   filename?: string;
+  handleClick?: (event: React.MouseEvent, onToggle: OpenStateToggle) => void ;
 };
 
 const AddToCalendar: React.FC<AddToCalendarProps> = ({
   children = "Add to My Calendar",
   event,
   filename = "download",
+  showIcon = true,
+  handleClick,
   open: initialOpen = false
 }) => {
   const [open, onToggle] = useOpenState(initialOpen);
   const urls = useMemo<CalendarURLs>(() => makeUrls(event), [event]);
 
+  const btnClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (handleClick){
+      handleClick(e, onToggle);
+    } else {
+      onToggle();
+    }
+  }
   return (
     <div className="chq-atc">
       {event && (
-        <button type="button" className="chq-atc--button" onClick={onToggle}>
-          <svg width="20px" height="20px" viewBox="0 0 1024 1024">
+        <button type="button" className="chq-atc--button" onClick={btnClick}>
+          {showIcon && (<svg width="20px" height="20px" viewBox="0 0 1024 1024">
             <path d="M704 192v-64h-32v64h-320v-64h-32v64h-192v704h768v-704h-192z M864 864h-704v-480h704v480z M864 352h-704v-128h160v64h32v-64h320v64h32v-64h160v128z" />
-          </svg>
+          </svg>)}
           {" "}
           {children}
         </button>

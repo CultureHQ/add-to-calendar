@@ -15,6 +15,10 @@ const getDropped = (container: HTMLElement) => (
   container.querySelector(".chq-atc--dropdown")
 );
 
+const getSvg = (container: HTMLElement) => {
+  container.querySelector("svg")
+}
+
 test("allows initial open to be set", () => {
   const { container } = render(<AddToCalendar event={mockEvent} open />);
 
@@ -73,4 +77,23 @@ test("makes expected links", () => {
   expect(yahoo).toContain(encodeURIComponent("0100"));
 
   expect(outlook).toContain("https://outlook.live.com");
+});
+
+test("allows click to be overriden by props", () => {
+  const { container, getByText } = render(
+    <div>
+      <AddToCalendar event={mockEvent} handleClick={(e)=> e.preventDefault() }/>
+    </div>
+  );
+  fireEvent.click(getByText("Add to My Calendar"));
+  expect(getDropped(container)).toBeFalsy();
+});
+
+test("allows to hide the icon", () => {
+  const { container } = render(
+    <div>
+      <AddToCalendar event={mockEvent} showIcon={false}/>
+    </div>
+  );
+  expect(getSvg(container)).toBeFalsy();
 });

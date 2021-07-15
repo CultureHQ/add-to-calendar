@@ -45,6 +45,13 @@ Defaults to `false`. Whether or not the dropdown should start open. (Will be ign
 
 Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"download"`. 
 
+### `showIcon`
+
+Used to control whether you want to show the calendar Icon or not. Defaults to `true`. 
+
+### `handleClick`
+
+Used to control the onClick event of the button if you want to extend or control it's behaviour. Be default it uses the internal function to control the dropdown. if you want to override it, provide a function `(event: React.MouseEvent, onToggle: OpenStateToggle)`  where it should expect the first argument to be the click event and the second argument the original behaviour to control the dropdown.
 ## Development
 
 You can run the tests by running `yarn test` and lint by running `yarn lint`. You can run the local server by running `yarn start` which will start the docs server on `http://localhost:8080`.
