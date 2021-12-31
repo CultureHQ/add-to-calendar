@@ -12,11 +12,11 @@ First, add `@culturehq/add-to-calendar` to your `package.json` `dependencies`, t
 ```javascript
 <AddToCalendar
   event={{
-    name: "Happy Hour",
+    name: 'Happy Hour',
     details: "Let's go after work",
-    location: "Boston, MA",
-    startsAt: "2018-12-06T17:00:00-05:00",
-    endsAt: "2018-12-06T18:00:00-05:00"
+    location: 'Boston, MA',
+    startsAt: '2018-12-06T17:00:00-05:00',
+    endsAt: '2018-12-06T18:00:00-05:00',
   }}
 />
 ```
@@ -43,7 +43,11 @@ Defaults to `false`. Whether or not the dropdown should start open. (Will be ign
 
 ### `filename`
 
-Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"download"`. 
+Used to specify the name of the downloaded iCalendar file (where applicable - Apple Calendar, Outlook). Defaults to `"download"`.
+
+### `onCalendarClose`
+
+A callback that would be triggered when the dropdown is closed while clicking anywhere on the document (DOM)
 
 ## Development
 
