@@ -38,7 +38,7 @@ const useOpenState = (initialOpen: boolean): [boolean, OpenStateToggle] => {
     () => {
       if (open) {
         const onClose = () => setOpen(false);
-        document.addEventListener("click", onClose);
+        useTimeout(() => document.addEventListener("click", onClose), 10);
 
         return () => document.removeEventListener("click", onClose);
       }
